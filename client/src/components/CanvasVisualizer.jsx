@@ -14,6 +14,10 @@ const CanvasVisualizer = ({ audioLink }) => {
     const analyserRef = useRef(null);
     const [userInteracted, setUserInteracted] = useState(false);
     const [counter, setCounter] = useState(0);
+    const [infoFrecuency, setInfoFrequency] = useState(null);
+    const [pitchNotes, setPitchNotes] = useState([]);
+    const [baseFrequency, setBaseFrequency] = useState(null);
+    const [fastFourierValue, setFastFourierValue] = useState(32)
    
     /*
 The useRef hook to create three refs: 
@@ -46,13 +50,21 @@ to the canvas element, audio element, and analyser node, respectively.
       create an audioContext using the AudioContext API, 
       which provides methods and properties for working with audio in the browser.
       */
-      analyser.fftSize = 512;
+      analyser.fftSize = fastFourierValue;
       /*
       Create an analyser node using audioContext.createAnalyser(). 
       The analyser node is used to analyze the audio data.
       
       We set the fftSize property of the analyser to 256, 
       which determines the size of the Fast Fourier Transform used for audio analysis.
+32: Low frequency resolution, few frequency bins.
+64: Low frequency resolution, more frequency bins.
+128: Balanced frequency resolution and number of frequency bins.
+256: Balanced frequency resolution and more frequency bins.
+512: Good frequency resolution, many frequency bins.
+1024: High frequency resolution, even more frequency bins.
+2048: Higher frequency resolution, even more frequency bins.
+4096: Very high frequency resolution, even more frequency bins.
      */
       
       const canvas = canvasRef.current;
@@ -101,8 +113,29 @@ to the canvas element, audio element, and analyser node, respectively.
     // WIDTH and HEIGHT variables represent 
     //the width and height of the canvas, respectively.
           analyser.getByteFrequencyData(dataArray);
-    // use analyser.getByteFrequencyData(dataArray) 
+    // use analyser.getByteFrequencyData(dataArray)
     //to retrieve the audio frequency data and store it in the dataArray
+          
+    const findBaseFrequency = () => {
+        analyser.getByteFrequencyData(dataArray);
+  
+        // Find the index with the highest amplitude in the dataArray
+        let maxAmplitudeIndex = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          if (dataArray[i] > dataArray[maxAmplitudeIndex]) {
+            maxAmplitudeIndex = i;
+          }
+        }
+  
+        const sampleRate = audioContext.sampleRate;
+        const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
+        const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
+          
+        setBaseFrequency(baseFrequency);
+      requestAnimationFrame(findBaseFrequency);
+    };  
+          
+          
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
     // We clear the canvas using canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -118,8 +151,10 @@ to the canvas element, audio element, and analyser node, respectively.
           //and the number of data points in the dataArray(bufferLength).
           //This will determine the width of each bar on the canvas.
           
-      let barHeight;
-      let x = 0;
+          let barHeight;
+         
+          let x = 0;
+          const pitchNotes = [];
 
           for (let i = 0; i < bufferLength; i++) {
               // Inside the loop, we iterate through the dataArray, 
@@ -128,8 +163,13 @@ to the canvas element, audio element, and analyser node, respectively.
                // We retrieve the barHeight from the current data point in the dataArray. 
               //The barHeight represents the intensity of the audio signal 
               //at the corresponding frequency.
-
-              canvasCtx.fillStyle = `rgb(${barHeight}, 50, 50)`;
+              
+              const frequency = i * (audioContext.sampleRate / fastFourierValue); // analyser.fftSize
+              const pitch = frequencyToNote(frequency);
+              pitchNotes.push(pitch);
+              
+                  canvasCtx.fillStyle = `rgb(${barHeight +30}, 50, 50)`;
+              
               // set the canvasCtx.fillStyle to a color value that depends on the barHeight. 
               //In this case, the color is represented as rgb(${ barHeight }, 50, 50), 
               //where the red component(barHeight) varies based on the audio intensity.
@@ -157,39 +197,50 @@ to the canvas element, audio element, and analyser node, respectively.
               // After drawing each bar, 
               //we increment x by barWidth + 1 to position the next bar horizontally 
               //with a gap.
-      }
-
+              
+             
+          }
+          setPitchNotes(pitchNotes.join(', '));
+          setInfoFrequency(dataArray.join(', '));
+         
       requestAnimationFrame(draw);
     };
 
-      audioElement.addEventListener('canplay', () => {
-        // add an event listener to the audioElement for the 'canplay' event.
-        // Inside the event listener, we call audioElement.play() to start playing the audio 
-          if (audioElement.play()) {
-              //This event is triggered when the audio is ready to play. 
-              draw();
-              //and then call the draw function to update the canvas visualization continuously.
-          };
-
-         
-        
+    audioElement.addEventListener('ended', () => {
+        setUserInteracted(false);
       });
-        
-        
-      audioElement.addEventListener('stopplaying', () => {
-        // add an event listener to the audioElement for the 'canplay' event.
-        // Inside the event listener, we call audioElement.play() to start playing the audio 
-          if (audioElement.pause()) {
-              //This event is triggered when the audio is ready to play. 
-              return audioElement.currentTime = 0;
-              //and then call the draw function to update the canvas visualization continuously.
-          };
-
-         
-        
-    });
+  
+      audioElement.addEventListener('canplaythrough', () => {
+        if (audioElement.play()) {
+          draw();
+        }
+      });
       
-     
+      const frequencyToNote = (frequency) => {
+        const noteNames = [
+          'C',
+          'C#',
+          'D',
+          'D#',
+          'E',
+          'F',
+          'F#',
+          'G',
+          'G#',
+          'A',
+          'A#',
+          'B',
+        ];
+      
+        const A4Frequency = 440; // Frequency of the A4 note in Hz
+        const semitoneRatio = 2 ** (1 / 12);
+        const semitonesFromA4 = 12 * Math.log2(frequency / A4Frequency);
+      
+        const noteIndex = Math.round(semitonesFromA4) % 12;
+        const octave = Math.floor((semitonesFromA4 + 9) / 12) + 4;
+      
+        return `${noteNames[noteIndex]}${octave}`;
+      };
       
       
 
@@ -207,23 +258,97 @@ to the canvas element, audio element, and analyser node, respectively.
    */
     
     const handleUserInteraction = () => {
-       
-       setUserInteracted(true);
-       if (counter % 2 === 0) {
-            setUserInteracted(false);
-        };
+        setUserInteracted(true);
+        if (counter % 2 === 0) {
+          setUserInteracted(false);
+        }
         setCounter(counter + 1);
-      };
+    };
+
+    const handleFastIncrease = () => {
+        let increase = fastFourierValue * 2;
+
+        if (increase < 4096) {
+            setFastFourierValue(increase);  
+        } else {
+            setFastFourierValue(4096)
+        }
+
+        
+    };
+
+    const handleFastDecrease = () => {
+        const decrease = fastFourierValue / 2;
+
+        if (decrease > 32) {
+            setFastFourierValue(decrease);  
+        } else {
+            setFastFourierValue(32)
+        }
+
+        
+    };
+
+/*
+Standard Web Banner Sizes:
+
+728 x 90 pixels (Leaderboard)
+300 x 250 pixels (Medium Rectangle)
+336 x 280 pixels (Large Rectangle)
+160 x 600 pixels (Wide Skyscraper)
+300 x 600 pixels (Half-Page Ad)
+Standard Screen Resolutions:
+
+1920 x 1080 pixels (Full HD)
+2560 x 1440 pixels (2K)
+3840 x 2160 pixels (4K)
+5120 x 2880 pixels (5K)
+7680 x 4320 pixels (8K)
+Social Media Graphics:
+
+1200 x 630 pixels (Facebook Link Post)
+1080 x 1080 pixels (Instagram Square)
+1200 x 675 pixels (LinkedIn Link Post)
+1500 x 500 pixels (Twitter Header)
+Responsive Web Design:
+
+Varies based on the layout and breakpoints of your design.
+Common breakpoints include 320px, 768px, 1024px, and 1440px.
+Custom Sizes:
+
+Custom canvas sizes tailored to your specific visualization needs.
+
+*/
     
     return (
 
         <div>
             <div>
-        <canvas ref={canvasRef} />
+            <canvas ref={canvasRef} width={600} height={300} />
+
             </div>
             <div>
             <button onClick={handleUserInteraction}>Start Visualizer</button>
             </div> 
+
+            <div>
+            {infoFrecuency !== null ? (
+      <ol>
+                    <li>{infoFrecuency} - {pitchNotes} - {baseFrequency }</li>
+      </ol>
+            ) : ''}
+            </div>
+
+            <div>
+                   <label>
+                    Set Frecuency
+                    <button onClick={handleFastIncrease}>+</button>
+                    <button onClick={handleFastDecrease}>-</button>
+                    <p>{fastFourierValue}</p>
+                    </label>
+            </div>
+
+            
         </div>
     )
 };
