@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
+import CanvasVisualizer from './CanvasVisualizer';
 
-const AudioPlayer = ({ audioLink }) => {
+const AudioPlayer = ({ visualAudioElement, audioContext,isAudioPlaying }) => {
   const audioRef = useRef(null);
 
   const handlePlay = () => {
@@ -18,7 +19,7 @@ const AudioPlayer = ({ audioLink }) => {
 
   return (
     <div>
-      <audio ref={audioRef} src={audioLink}></audio>
+      <audio ref={audioRef} src={visualAudioElement}></audio>
       <button onClick={handlePlay}>Play</button> 
       <button onClick={handleStop}>Stop</button> 
     </div>

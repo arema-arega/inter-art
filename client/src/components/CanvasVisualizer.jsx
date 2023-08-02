@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import AudioPlayer from './AudioPlayer';
 
 //Import React and the necessary hooks
 //useRef is a React hook that provides a way to create a mutable object 
@@ -12,15 +12,24 @@ const CanvasVisualizer = ({ audioLink }) => {
   const canvasRef = useRef(null);
  
   const audioRef = useRef(null);
-    const analyserRef = useRef(null);
-    const [userInteracted, setUserInteracted] = useState(false);
-    const [counter, setCounter] = useState(0);
+  const analyserRef = useRef(null);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [audioContext, setAudioContext] = useState(null);
+    
     const [infoFrecuency, setInfoFrequency] = useState(null);
     const [pitchNotes, setPitchNotes] = useState([]);
     const [baseFrequency, setBaseFrequency] = useState(null);
   const [fastFourierValue, setFastFourierValue] = useState(32);
   const [canvasWidth, setcanvasWidth] = useState(100);
   const [canvasHeight, setcanvasHeight] = useState(50);
+  const [visualAudioElement, setVisualAudioElement] = useState(null);
+
+
+  const toggleAudioPlayback = () => {
+    setIsAudioPlaying((prevIsAudioPlaying) => !prevIsAudioPlaying);
+  };
+  // If user interacts then the visualizer will start
    
     /*
 The useRef hook to create three refs: 
@@ -29,6 +38,8 @@ These refs will be used to store references
 to the canvas element, audio element, and analyser node, respectively.
 
     */
+  
+   
 
     useEffect(() => {
       // useEffect from React to perform side effects in function components. 
@@ -40,15 +51,20 @@ to the canvas element, audio element, and analyser node, respectively.
     //and specifies which values the effect depends on.
     //If the dependency array is not provided, 
     //the effect will be executed after every render.
-    if (!userInteracted) return;
-    // If user interacts then the visualizer will start
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioContext) return;
+    
+
+   
+   
+      
+      
       /*Create an audioContext using the AudioContext API, 
       which provides methods and properties for working with audio in the browser.
       */
-       
+      
+        const analyser = audioContext.createAnalyser();
         
-      const analyser = audioContext.createAnalyser();
+     
       /*
       create an audioContext using the AudioContext API, 
       which provides methods and properties for working with audio in the browser.
@@ -78,9 +94,15 @@ to the canvas element, audio element, and analyser node, respectively.
       //using canvas.getContext('2d'), 
       //which allows us to draw on the canvas.
     const audioElement = new Audio(audioLink);
-    //Creates a new Audio object with the provided audioLink, 
+    //Creates a new Audio object with the provided audioLink,
     //representing the audio file to be visualized.
-    audioRef.current = audioElement;
+      
+   // audioElement.addEventListener('canplaythrough', () => {
+    //  audioElement.play();
+  //  });
+    
+      audioRef.current = audioElement;
+      setVisualAudioElement(audioElement);
       analyserRef.current = analyser;
     //Store the audio element and analyser node references 
     //in their respective refs for later use.
@@ -105,7 +127,7 @@ to the canvas element, audio element, and analyser node, respectively.
       const dataArray = new Uint8Array(bufferLength);
       //Creates a new Uint8Array called dataArray 
       //with a length equal to the bufferLength.
-
+//_____________________________________________________________________________
       const draw = () => {
     //define the draw function, 
     //which will be used to continuously 
@@ -119,7 +141,7 @@ to the canvas element, audio element, and analyser node, respectively.
           analyser.getByteFrequencyData(dataArray);
     // use analyser.getByteFrequencyData(dataArray)
     //to retrieve the audio frequency data and store it in the dataArray
-          
+  //_____________________________________________________________________        
     const findBaseFrequency = () => {
         analyser.getByteFrequencyData(dataArray);
   
@@ -136,10 +158,10 @@ to the canvas element, audio element, and analyser node, respectively.
         const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
           
         setBaseFrequency(baseFrequency);
-      requestAnimationFrame(findBaseFrequency);
+      requestAnimationFrame(findBaseFrequency); // DRAW
     };  
           
-          
+    //______________________________________________________________________________      
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
     // We clear the canvas using canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -207,19 +229,19 @@ to the canvas element, audio element, and analyser node, respectively.
           setPitchNotes(pitchNotes.join(', '));
           setInfoFrequency(dataArray.join(', '));
          
-      requestAnimationFrame(draw);
+      requestAnimationFrame(draw); // DRAW
     };
-
+//____________________________________________________________________________________________
     audioElement.addEventListener('ended', () => {
         setUserInteracted(false);
       });
   
       audioElement.addEventListener('canplaythrough', () => {
         if (audioElement.play()) {
-          draw();
+          draw(); // DRAW
         }
       });
-      
+   //_______________________________________________________________________________________   
       const frequencyToNote = (frequency) => {
         const noteNames = [
           'C',
@@ -246,14 +268,17 @@ to the canvas element, audio element, and analyser node, respectively.
         return `${noteNames[noteIndex]}${octave}`;
       };
       
-      
+    //__________________________________________________________________________________  
 
-    return () => {
+      return () => {
+       
       audioElement.pause();
-        audioElement.currentTime = 0;
+      audioElement.currentTime = 0;
+      setUserInteracted(false);
+      setIsAudioPlaying(false);
         
     };
-  }, [audioLink, userInteracted, fastFourierValue, canvasWidth, canvasHeight ]); // uses the changes of the audioLink to re-start
+  }, [audioLink, audioContext, userInteracted, isAudioPlaying, fastFourierValue, canvasWidth, canvasHeight, visualAudioElement ]); // uses the changes of the audioLink to re-start
 
     /* Inside the useEffect hook,
     set up the audio context, 
@@ -261,13 +286,17 @@ to the canvas element, audio element, and analyser node, respectively.
     and connect it to the audio source
    */
     
-    const handleUserInteraction = () => {
-        setUserInteracted(true);
-        if (counter % 2 === 0) {
-          setUserInteracted(false);
-        }
-        setCounter(counter + 1);
+  
+     // Create an audio context if not already created  
+     const handleUserInteraction = () => {
+      const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+       setAudioContext(newAudioContext);
+       setUserInteracted(true);
+       setIsAudioPlaying(true);
+
     };
+  
+    
 
     const handleFastIncrease = () => {
         let increase = fastFourierValue * 2;
@@ -362,7 +391,8 @@ Custom canvas sizes tailored to your specific visualization needs.
 
             </div>
             <div>
-            <button onClick={handleUserInteraction}>Start Visualizer</button>
+          <button onClick={toggleAudioPlayback}> {isAudioPlaying ? "PAUSE" : "PLAY"}</button>
+          <button onClick={handleUserInteraction}> START VISUALIZER </button>
         </div> 
         
         <div>
@@ -370,7 +400,7 @@ Custom canvas sizes tailored to your specific visualization needs.
                     Canvas Size
                     <button onClick={handleCanvasIncrease}>+</button>
                     <button onClick={handleCanvasDecrease}>-</button>
-                    <p>{fastFourierValue}</p>
+                    <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
                     </label>
             </div>
 
@@ -380,7 +410,7 @@ Custom canvas sizes tailored to your specific visualization needs.
             <div>
             {infoFrecuency !== null ? (
       <ol>
-                    <li>{infoFrecuency} - {pitchNotes} - {baseFrequency }</li>
+                    <li>{infoFrecuency} - {pitchNotes} - {baseFrequency}</li>
       </ol>
             ) : ''}
             </div>
@@ -394,7 +424,12 @@ Custom canvas sizes tailored to your specific visualization needs.
                     </label>
             </div>
 
-            
+            <div>
+        <AudioPlayer visualAudioElement={visualAudioElement} audioContext={audioContext} isAudioPlaying={isAudioPlaying} />
+      </div> 
+        
+
+
         </div>
     )
 };

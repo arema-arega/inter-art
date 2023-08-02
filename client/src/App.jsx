@@ -3,7 +3,8 @@ import AudioUpload from './components/AudioUpload';
 import AudioPlayer from './components/AudioPlayer';
 import CanvasVisualizer from './components/CanvasVisualizer';
 //import ImageUploader from './components/ImageUploader';
-import Logo from './assets/Logo.svg';
+import './App.css'; // Correct way to import a CSS file in React
+
 
 function App() {
   const [audio, setAudio] = useState(null);
@@ -55,15 +56,15 @@ function App() {
   //const imageLink = Logo && URL.createObjectURL(Logo);
   return (
     <div>
+
+      <div className='App'>
       {/*<img className='logo' alt='logo' src={imageLink} />*/}
 
       <div>
         <AudioUpload onFileUpload={handleFileUpload} />
       </div>
 
-      <div>
-        <AudioPlayer audioLink={audioLink} />
-      </div>
+      <AudioPlayer />
 
       <div>
         <CanvasVisualizer audioLink={audioLink} />
@@ -98,7 +99,9 @@ function App() {
         </div>
           */}
     </div>
-  );
-}
+    </div>
+  )
+};
+
 
 export default App;
