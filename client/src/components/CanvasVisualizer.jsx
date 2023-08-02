@@ -18,7 +18,9 @@ const CanvasVisualizer = ({ audioLink }) => {
     const [infoFrecuency, setInfoFrequency] = useState(null);
     const [pitchNotes, setPitchNotes] = useState([]);
     const [baseFrequency, setBaseFrequency] = useState(null);
-    const [fastFourierValue, setFastFourierValue] = useState(32)
+  const [fastFourierValue, setFastFourierValue] = useState(32);
+  const [canvasWidth, setcanvasWidth] = useState(100);
+  const [canvasHeight, setcanvasHeight] = useState(50);
    
     /*
 The useRef hook to create three refs: 
@@ -251,7 +253,7 @@ to the canvas element, audio element, and analyser node, respectively.
         audioElement.currentTime = 0;
         
     };
-  }, [audioLink, userInteracted, fastFourierValue]); // uses the changes of the audioLink to re-start
+  }, [audioLink, userInteracted, fastFourierValue, canvasWidth, canvasHeight ]); // uses the changes of the audioLink to re-start
 
     /* Inside the useEffect hook,
     set up the audio context, 
@@ -289,7 +291,37 @@ to the canvas element, audio element, and analyser node, respectively.
         }
 
         
-    };
+  };
+  
+
+
+  const handleCanvasIncrease = () => {
+    let increaseWidth = canvasWidth * 2;
+    let increaseHeight = canvasHeight * 2;
+
+    if (increaseWidth < 7680 && increaseHeight < 4320 ) {
+      setcanvasWidth(increaseWidth);
+      setcanvasHeight(increaseHeight);
+    } else {
+      setcanvasWidth(7680);
+      setcanvasHeight(4320);
+    }
+
+  };
+  const handleCanvasDecrease = () => {
+    let decreaseWidth = canvasWidth / 2;
+    let decreaseHeight = canvasHeight / 2;
+  
+    if (decreaseWidth > 100 && decreaseHeight > 50 ) {
+       setcanvasWidth(decreaseWidth);
+      setcanvasHeight(decreaseHeight);
+    } else {
+      setcanvasWidth(100)
+      setcanvasHeight(50)
+    }
+
+  };
+
 
 /*
 Standard Web Banner Sizes:
@@ -326,12 +358,24 @@ Custom canvas sizes tailored to your specific visualization needs.
 
         <div>
             <div>
-            <canvas ref={canvasRef} width={600} height={300} />
+            <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />
 
             </div>
             <div>
             <button onClick={handleUserInteraction}>Start Visualizer</button>
-            </div> 
+        </div> 
+        
+        <div>
+                   <label>
+                    Canvas Size
+                    <button onClick={handleCanvasIncrease}>+</button>
+                    <button onClick={handleCanvasDecrease}>-</button>
+                    <p>{fastFourierValue}</p>
+                    </label>
+            </div>
+
+
+
 
             <div>
             {infoFrecuency !== null ? (
