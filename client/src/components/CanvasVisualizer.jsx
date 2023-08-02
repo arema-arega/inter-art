@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from 'react';
 //without causing a re - render.
 const CanvasVisualizer = ({ audioLink }) => {
   const canvasRef = useRef(null);
+ 
   const audioRef = useRef(null);
     const analyserRef = useRef(null);
     const [userInteracted, setUserInteracted] = useState(false);
@@ -69,7 +70,7 @@ to the canvas element, audio element, and analyser node, respectively.
       
       const canvas = canvasRef.current;
      // Gets the reference to the canvas element using the canvasRef.current.
-     
+      console.log(canvas);
       const canvasCtx = canvas.getContext('2d');
       //Obtains the 2D context of the canvas 
       //using canvas.getContext('2d'), 
@@ -95,6 +96,7 @@ to the canvas element, audio element, and analyser node, respectively.
     //This is necessary for the audio to be audible during visualization.
 
       const bufferLength = analyser.frequencyBinCount;
+      console.log(`buffer length ${bufferLength} number of data points received` )
     //Gets the number of data points to be received 
     //from the analyser using analyser.frequencyBinCount.
     //This determines the length of the array used to store frequency data.
@@ -249,7 +251,7 @@ to the canvas element, audio element, and analyser node, respectively.
         audioElement.currentTime = 0;
         
     };
-  }, [audioLink, userInteracted]); // uses the changes of the audioLink to re-start
+  }, [audioLink, userInteracted, fastFourierValue]); // uses the changes of the audioLink to re-start
 
     /* Inside the useEffect hook,
     set up the audio context, 
