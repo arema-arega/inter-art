@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import AudioUpload from './components/AudioUpload';
 import AudioPlayer from './components/AudioPlayer';
 import CanvasVisualizer from './components/CanvasVisualizer';
-//import ImageUploader from './components/ImageUploader';
-import './App.css'; // Correct way to import a CSS file in React
+import './App.css'; 
 
 
 function App() {
   const [audio, setAudio] = useState(null);
- // const [images, setImages] = useState([]);
   const [info, setInfo] = useState([]);
- // console.log(`this is the ${info}`);
+ 
   
  const handleFileUpload = (loaded, infoTrack) => {
    console.log(`this is the ${Object.values(infoTrack)}`);
@@ -43,22 +41,12 @@ function App() {
 
   const audioLink = audio && URL.createObjectURL(audio);
 
- /* const handleImageUpload = (imageUploaded) => {
-    console.log(imageUploaded.value);
-    setImages([...images, imageUploaded]);
-  };
-
-  const deleteImage = (imageId) => {
-    const filteredImages = images.filter((image) => image.id !== imageId);
-    setImages(filteredImages);
-  };
-*/
-  //const imageLink = Logo && URL.createObjectURL(Logo);
+ 
   return (
     <div>
 
       <div className='App'>
-      {/*<img className='logo' alt='logo' src={imageLink} />*/}
+      
 
       <div>
         <AudioUpload onFileUpload={handleFileUpload} />
@@ -83,21 +71,6 @@ function App() {
           (<p> No Track</p>)}
       </div>
 
-
-
-      {/*
-        <div>
-          <ImageUploader onImgUpload={handleImageUpload} />
-          {images.map((image) => (
-            <img
-              key={image.id} // Use image.id instead of images.id
-              className="imagen"
-              src={URL.createObjectURL(image)}
-              onClick={() => deleteImage(image.id)} // Call deleteImage with the correct argument
-            />
-          ))}
-        </div>
-          */}
     </div>
     </div>
   )

@@ -11,16 +11,16 @@
 }
 
 button {
-  background-color: rgb(255, 0, 0);
   border: none;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.6));
-  padding: 50px ;
+  padding: 50px;
+  font-size: 20px; /* Default font size */
+  transition: font-size 0.3s ease-in-out; /* Add transition to font-size */
 }
 
-button :hover {
-  color: rgb(255, 255, 255);
+button:hover {
+  font-size: calc(20px * 1.07); /* Increase font size by 7% on hover */
+  color: rgb(5, 63, 255);
   background-color: rgb(5, 2, 31);
   transform: scale(1.07);
- 
-  border: none;
 }

@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import CanvasVisualizer from './CanvasVisualizer';
 
 const AudioPlayer = ({ visualAudioElement, audioContext,isAudioPlaying }) => {
-  const audioRef = useRef(null);
+  const audioRef = useRef();
 
-  const handlePlay = () => {
+  const handlePlay = (isAudioPlaying) => {
     audioRef.current.play().then(() => {
       // Playback started successfully or resumed
     }).catch(error => {
