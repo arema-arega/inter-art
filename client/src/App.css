@@ -7,14 +7,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(20px + 2vmin);
+  font-size: calc(10px + 2vmin);
+  margin: auto;
+  padding: 30px ;
+}
+
+
+div{
+  margin: 30px ;
 }
 
 button {
   size: 15px;
   border: none;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.6));
-  padding: 50px;
+ margin: 15px;
   font-size: 10px; /* Default font size */
   transition: font-size 0.3s ease-in-out; /* Add transition to font-size */
 }
@@ -26,3 +33,35 @@ button:hover {
   transform: scale(1.07);
 }
 
+.Play{
+  background-color: rgb(227, 5, 5);
+  color: rgb(255, 255, 255);
+}
+
+.AudioUpload{
+  background-color: rgb(238, 255, 0);
+}
+
+.Decrease{
+  background-color: blue;
+  color: white;
+  
+}
+
+.Increase{
+  background-color: rgb(2, 2, 89);
+  color: white;
+  
+}
+
+.Stop{
+  background-color: rgb(255, 230, 0);
+}
+
+.list{
+  background-color: rgb(238, 255, 0);
+}
+
+.InfoFrecuency{
+  background-color: greenyellow;
+}

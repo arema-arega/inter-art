@@ -436,18 +436,18 @@ Custom canvas sizes tailored to your specific visualization needs.
 
             </div>
         <div>
-        <button onClick={handlePlay}> PLAY </button>
+        <button className='Play' onClick={handlePlay}> PLAY </button>
         </div> 
           
            <div>
-           <button onClick={handleStop}> STOP VISUALIZER </button> 
+           <button className= "Stop" onClick={handleStop}> STOP VISUALIZER </button> 
            </div>
         
         <div>
                    <label>
                     Canvas Size
-                    <button onClick={handleCanvasIncrease}>+</button>
-                    <button onClick={handleCanvasDecrease}>-</button>
+                    <button className= "Increase" onClick={handleCanvasIncrease}>+</button>
+                    <button className= "Decrease" onClick={handleCanvasDecrease}>-</button>
                     <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
                     </label>
             </div>
@@ -455,10 +455,12 @@ Custom canvas sizes tailored to your specific visualization needs.
 
 
 
-            <div>
+            <div className= "InfoFrecuency">
             {infoFrecuency !== null ? (
       <ol>
-                    <li>{infoFrecuency} - {pitchNotes} - {baseFrequency}</li>
+              <li>Frecuency - {infoFrecuency} </li>
+              <li> Pitch - {pitchNotes} </li>
+              <li> Base Frecuency - {baseFrequency}</li>
       </ol>
             ) : ''}
             </div>
@@ -466,8 +468,8 @@ Custom canvas sizes tailored to your specific visualization needs.
             <div>
                    <label className='frecuency'>
                     Set Frecuency
-                    <button onClick={handleFastIncrease}>+</button>
-                    <button onClick={handleFastDecrease}>-</button>
+                    <button className= "Increase" onClick={handleFastIncrease}>+</button>
+                    <button className= "Decrease" onClick={handleFastDecrease}>-</button>
                     <p>{fastFourierValue}</p>
                     </label>
             </div>

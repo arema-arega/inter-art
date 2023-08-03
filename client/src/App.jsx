@@ -58,7 +58,7 @@ function App() {
         <CanvasVisualizer audioLink={audioLink} />
       </div>
 
-      <div>
+      <div className='list'>
         {info.length > 0 ?
       (<ol>
           {info.map((key) => (
