@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AudioUpload from './components/AudioUpload';
-import AudioPlayer from './components/AudioPlayer';
+//import AudioPlayer from './components/AudioPlayer';
 import CanvasVisualizer from './components/CanvasVisualizer';
 import './App.css'; 
 
@@ -52,7 +52,7 @@ function App() {
         <AudioUpload onFileUpload={handleFileUpload} />
       </div>
 
-      <AudioPlayer />
+      {/*<AudioPlayer />*/}
 
       <div>
         <CanvasVisualizer audioLink={audioLink} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import AudioPlayer from './AudioPlayer';
+//import AudioPlayer from './AudioPlayer';
 
 //Import React and the necessary hooks
 //useRef is a React hook that provides a way to create a mutable object 
@@ -17,19 +17,16 @@ const CanvasVisualizer = ({ audioLink }) => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [audioContext, setAudioContext] = useState(null);
     
-    const [infoFrecuency, setInfoFrequency] = useState(null);
-    const [pitchNotes, setPitchNotes] = useState([]);
-    const [baseFrequency, setBaseFrequency] = useState(null);
+  const [infoFrecuency, setInfoFrequency] = useState(null);
+  const [pitchNotes, setPitchNotes] = useState([]);
+  const [baseFrequency, setBaseFrequency] = useState(null);
   const [fastFourierValue, setFastFourierValue] = useState(32);
   const [canvasWidth, setcanvasWidth] = useState(100);
   const [canvasHeight, setcanvasHeight] = useState(50);
   const [visualAudioElement, setVisualAudioElement] = useState(null);
 
 
-  const toggleAudioPlayback = () => {
-    setIsAudioPlaying((prevIsAudioPlaying) => !prevIsAudioPlaying);
-  };
-  // If user interacts then the visualizer will start
+ 
    
     /*
 The useRef hook to create three refs: 
@@ -39,6 +36,26 @@ to the canvas element, audio element, and analyser node, respectively.
 
     */
   
+  
+const handlePlay = () => {
+  setIsAudioPlaying(true);
+  console.log("playing")
+   
+    
+   
+};
+// If user interacts then the visualizer will start
+  
+  
+const handleStop = () => {
+  console.log("The user has pressed STOP")
+  visualAudioElement.pause();
+  console.log(visualAudioElement);
+  setIsAudioPlaying(false);
+  
+  
+
+};
    
 
     useEffect(() => {
@@ -51,29 +68,32 @@ to the canvas element, audio element, and analyser node, respectively.
     //and specifies which values the effect depends on.
     //If the dependency array is not provided, 
     //the effect will be executed after every render.
-    if (!audioContext) return;
-    
-
    
-   
-      
-      
-      /*Create an audioContext using the AudioContext API, 
+    //__AUDIO CONEXT____________________________________________________________________________
+     /*Create an audioContext using the AudioContext API,
       which provides methods and properties for working with audio in the browser.
       */
       
-        const analyser = audioContext.createAnalyser();
-        
-     
-      /*
-      create an audioContext using the AudioContext API, 
-      which provides methods and properties for working with audio in the browser.
-      */
-      analyser.fftSize = fastFourierValue;
+      const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+      setAudioContext(newAudioContext);
+     if (!isAudioPlaying) return;
+      
+       console.log(audioContext);
+      
+      
+   //___ANALIZER____PPROP AUDIOCONTEXT___________________________________________________________________
       /*
       Create an analyser node using audioContext.createAnalyser(). 
       The analyser node is used to analyze the audio data.
-      
+      */
+      const analyser = audioContext.createAnalyser();
+
+      console.log(analyser);
+        
+      analyser.fftSize = fastFourierValue;
+
+      console.log(fastFourierValue);
+      /*
       We set the fftSize property of the analyser to 256, 
       which determines the size of the Fast Fourier Transform used for audio analysis.
 32: Low frequency resolution, few frequency bins.
@@ -85,28 +105,32 @@ to the canvas element, audio element, and analyser node, respectively.
 2048: Higher frequency resolution, even more frequency bins.
 4096: Very high frequency resolution, even more frequency bins.
      */
+    
+  //_____CANVAS CREATION_______________________________________________________________________________
+
+  const canvas = canvasRef.current;
+  // Gets the reference to the canvas element using the canvasRef.current.
+   console.log(canvas);
+   const canvasCtx = canvas.getContext('2d');
+   //Obtains the 2D context of the canvas 
+   //using canvas.getContext('2d'), 
+   //which allows us to draw on the canvas.
+
       
-      const canvas = canvasRef.current;
-     // Gets the reference to the canvas element using the canvasRef.current.
-      console.log(canvas);
-      const canvasCtx = canvas.getContext('2d');
-      //Obtains the 2D context of the canvas 
-      //using canvas.getContext('2d'), 
-      //which allows us to draw on the canvas.
+   //_AUDIO ELEMENT_____PROP AUDIOLINK__/ ANALYSER___________________________________________________________________________  
     const audioElement = new Audio(audioLink);
     //Creates a new Audio object with the provided audioLink,
     //representing the audio file to be visualized.
-      
-   // audioElement.addEventListener('canplaythrough', () => {
-    //  audioElement.play();
-  //  });
-    
       audioRef.current = audioElement;
       setVisualAudioElement(audioElement);
       analyserRef.current = analyser;
-    //Store the audio element and analyser node references 
+    //Store the audio element and analyser node references
     //in their respective refs for later use.
-
+      
+      console.log(`esto es audioelement ${audioElement}`)
+      
+      
+//_____SOURCE NODE______________________________________________________________________________
       const sourceNode = audioContext.createMediaElementSource(audioElement);
     // create a sourceNode using audioContext.createMediaElementSource(audioElement). 
     //The sourceNode represents the audio source 
@@ -118,49 +142,63 @@ to the canvas element, audio element, and analyser node, respectively.
     //connect the analyser node to the audio context's destination (i.e., audio output) 
     //using analyser.connect(audioContext.destination). 
     //This is necessary for the audio to be audible during visualization.
-
+    
+//_____BUFFER LENGHT____________________________________________________________________________
       const bufferLength = analyser.frequencyBinCount;
       console.log(`buffer length ${bufferLength} number of data points received` )
     //Gets the number of data points to be received 
     //from the analyser using analyser.frequencyBinCount.
     //This determines the length of the array used to store frequency data.
       const dataArray = new Uint8Array(bufferLength);
-      //Creates a new Uint8Array called dataArray 
+      //Creates a new Uint8Array called dataArray
       //with a length equal to the bufferLength.
+  
+      
+ 
+
+
 //_____________________________________________________________________________
       const draw = () => {
     //define the draw function, 
     //which will be used to continuously 
    // update the canvas with the audio visualization.
-  
+  console.log("Inside drawing")
    // if the user doesn't interact the canvas will not be displayed  
       const WIDTH = canvas.width;
       const HEIGHT = canvas.height;
-    // WIDTH and HEIGHT variables represent 
+    // WIDTH and HEIGHT variables represent
     //the width and height of the canvas, respectively.
-          analyser.getByteFrequencyData(dataArray);
-    // use analyser.getByteFrequencyData(dataArray)
-    //to retrieve the audio frequency data and store it in the dataArray
-  //_____________________________________________________________________        
-    const findBaseFrequency = () => {
-        analyser.getByteFrequencyData(dataArray);
-  
-        // Find the index with the highest amplitude in the dataArray
-        let maxAmplitudeIndex = 0;
-        for (let i = 0; i < dataArray.length; i++) {
-          if (dataArray[i] > dataArray[maxAmplitudeIndex]) {
-            maxAmplitudeIndex = i;
-          }
-        }
-  
-        const sampleRate = audioContext.sampleRate;
-        const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
-        const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
-          
-        setBaseFrequency(baseFrequency);
-      requestAnimationFrame(findBaseFrequency); // DRAW
-    };  
-          
+         
+    analyser.getByteFrequencyData(dataArray);
+
+//_____BASE FRECUENCY  PROPS /DATA ARRAY / FASTFOURIERVALUE _______________________________________________________________        
+const findBaseFrequency = () => {
+  analyser.getByteFrequencyData(dataArray);
+  // use analyser.getByteFrequencyData(dataArray)
+  //to retrieve the audio frequency data and store it in the dataArray
+    // Find the index with the highest amplitude in the dataArray
+    let maxAmplitudeIndex = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+      if (dataArray[i] > dataArray[maxAmplitudeIndex]) {
+        maxAmplitudeIndex = i;
+      }
+    }
+
+    const sampleRate = audioContext.sampleRate;
+    const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
+    const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
+      
+    setBaseFrequency(baseFrequency);
+  requestAnimationFrame(findBaseFrequency); // DRAW
+};  
+      
+
+
+
+
+
+        
+        
     //______________________________________________________________________________      
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -189,11 +227,12 @@ to the canvas element, audio element, and analyser node, respectively.
                // We retrieve the barHeight from the current data point in the dataArray. 
               //The barHeight represents the intensity of the audio signal 
               //at the corresponding frequency.
-              
-              const frequency = i * (audioContext.sampleRate / fastFourierValue); // analyser.fftSize
+           // console.log(barHeight);
+            const frequency = i * (audioContext.sampleRate / fastFourierValue); // analyser.fftSize
+            console.log(frequency);
               const pitch = frequencyToNote(frequency);
               pitchNotes.push(pitch);
-              
+          //  console.log(pitch);
                   canvasCtx.fillStyle = `rgb(${barHeight +30}, 50, 50)`;
               
               // set the canvasCtx.fillStyle to a color value that depends on the barHeight. 
@@ -226,14 +265,22 @@ to the canvas element, audio element, and analyser node, respectively.
               
              
           }
+          
           setPitchNotes(pitchNotes.join(', '));
-          setInfoFrequency(dataArray.join(', '));
-         
+          setInfoFrequency(dataArray.join(', '));  
       requestAnimationFrame(draw); // DRAW
-    };
+      };
+      
+
+
+
+
+
 //____________________________________________________________________________________________
     audioElement.addEventListener('ended', () => {
-        setUserInteracted(false);
+      
+      setIsAudioPlaying(false);
+      
       });
   
       audioElement.addEventListener('canplaythrough', () => {
@@ -268,6 +315,10 @@ to the canvas element, audio element, and analyser node, respectively.
         return `${noteNames[noteIndex]}${octave}`;
       };
       
+
+
+
+
     //__________________________________________________________________________________  
 
       return () => {
@@ -278,7 +329,7 @@ to the canvas element, audio element, and analyser node, respectively.
       setIsAudioPlaying(false);
         
     };
-  }, [audioLink, audioContext, userInteracted, isAudioPlaying, fastFourierValue, canvasWidth, canvasHeight, visualAudioElement ]); // uses the changes of the audioLink to re-start
+  }, [audioLink, isAudioPlaying, fastFourierValue, canvasWidth, canvasHeight, visualAudioElement ]); // uses the changes of the audioLink to re-start
 
     /* Inside the useEffect hook,
     set up the audio context, 
@@ -287,14 +338,8 @@ to the canvas element, audio element, and analyser node, respectively.
    */
     
   
-     // Create an audio context if not already created  
-     const handleUserInteraction = () => {
-      const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
-       setAudioContext(newAudioContext);
-       setUserInteracted(true);
-       setIsAudioPlaying(true);
-
-    };
+     
+     
   
     
 
@@ -390,10 +435,13 @@ Custom canvas sizes tailored to your specific visualization needs.
             <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />
 
             </div>
-            <div>
-          <button onClick={toggleAudioPlayback}> {isAudioPlaying ? "PAUSE" : "PLAY"}</button>
-          <button onClick={handleUserInteraction}> START VISUALIZER </button>
+        <div>
+        <button onClick={handlePlay}> PLAY </button>
         </div> 
+          
+           <div>
+           <button onClick={handleStop}> STOP VISUALIZER </button> 
+           </div>
         
         <div>
                    <label>
@@ -416,7 +464,7 @@ Custom canvas sizes tailored to your specific visualization needs.
             </div>
 
             <div>
-                   <label>
+                   <label className='frecuency'>
                     Set Frecuency
                     <button onClick={handleFastIncrease}>+</button>
                     <button onClick={handleFastDecrease}>-</button>
@@ -424,9 +472,9 @@ Custom canvas sizes tailored to your specific visualization needs.
                     </label>
             </div>
 
-            <div>
-        <AudioPlayer visualAudioElement={visualAudioElement} audioContext={audioContext} isAudioPlaying={isAudioPlaying} />
-      </div> 
+        {/*<div>
+          <AudioPlayer visualAudioElement={visualAudioElement} audioContext={audioContext} isAudioPlaying={isAudioPlaying} />
+            </div>*/} 
         
 
 

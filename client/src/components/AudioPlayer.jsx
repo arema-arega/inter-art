@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import CanvasVisualizer from './CanvasVisualizer';
+/*import React, { useRef } from 'react';
+
 
 const AudioPlayer = ({ visualAudioElement, audioContext,isAudioPlaying }) => {
   const audioRef = useRef();
 
-  const handlePlay = (isAudioPlaying) => {
+  const handlePlay = () => {
     audioRef.current.play().then(() => {
       // Playback started successfully or resumed
     }).catch(error => {
@@ -27,4 +27,4 @@ const AudioPlayer = ({ visualAudioElement, audioContext,isAudioPlaying }) => {
 };
 
 export default AudioPlayer;
-
+*/

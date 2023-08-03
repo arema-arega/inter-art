@@ -11,10 +11,11 @@
 }
 
 button {
+  size: 15px;
   border: none;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.6));
   padding: 50px;
-  font-size: 20px; /* Default font size */
+  font-size: 10px; /* Default font size */
   transition: font-size 0.3s ease-in-out; /* Add transition to font-size */
 }
 
@@ -24,3 +25,4 @@ button:hover {
   background-color: rgb(5, 2, 31);
   transform: scale(1.07);
 }
+
