@@ -37,21 +37,48 @@ to the canvas element, audio element, and analyser node, respectively.
     */
   
   
-const handlePlay = () => {
-  setIsAudioPlaying(true);
-  console.log("playing")
+  const handlePlay = () => {
+    audioRef.current?.play();
+   setIsAudioPlaying(true);
+    console.log("playing")
    
-    
    
 };
 // If user interacts then the visualizer will start
-  
-  
+ //https://stackoverflow.com/questions/67764413/react-js-audio-elements-src-is-updating-on-setstate-but-the-audioref-is-not 
+ /*
+ useRef will not get re-initialized on every render.
+
+So it will stay the same as it was initialized the very first time.
+
+So whenever you are switching your track you have to update the audioRef too.
+
+Change your toPrevTrack and toNextTrack
+
+const toPrevTrack = () => {
+   const prevIndex = trackIndex - 1 < 0 ? tracks.length - 1 : trackIndex - 1;
+   const { audioSrc } = tracks[prevIndex]
+   audioRef.current = new Audio(audioSrc);
+}
+
+const toNextTrack = () => {
+   const nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
+   const { audioSrc } = tracks[nextIndex]
+   audioRef.current = new Audio(audioSrc);
+}
+
+ */
+ 
+ 
+ 
 const handleStop = () => {
   console.log("The user has pressed STOP")
-  visualAudioElement.pause();
-  console.log(visualAudioElement);
-  setIsAudioPlaying(false);
+  audioContext.close();
+  console.log(audioRef.current.pause);
+  audioRef.current.pause();
+  audioRef.current.currentTime = 0;
+ setIsAudioPlaying(false);
+  
   
   
 
@@ -76,12 +103,12 @@ const handleStop = () => {
       
       const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
       setAudioContext(newAudioContext);
-     if (!isAudioPlaying) return;
+    if (!isAudioPlaying) return;
       
        console.log(audioContext);
       
       
-   //___ANALIZER____PPROP AUDIOCONTEXT___________________________________________________________________
+   //___ANALIZER____PROP AUDIOCONTEXT___________________________________________________________________
       /*
       Create an analyser node using audioContext.createAnalyser(). 
       The analyser node is used to analyze the audio data.
@@ -116,11 +143,17 @@ const handleStop = () => {
    //using canvas.getContext('2d'), 
    //which allows us to draw on the canvas.
 
-      
+    
    //_AUDIO ELEMENT_____PROP AUDIOLINK__/ ANALYSER___________________________________________________________________________  
     const audioElement = new Audio(audioLink);
     //Creates a new Audio object with the provided audioLink,
     //representing the audio file to be visualized.
+      
+      /*
+    const audio = new Audio(audioSrc)
+    const audioRef = useRef(audio)
+
+      */
       audioRef.current = audioElement;
       setVisualAudioElement(audioElement);
       analyserRef.current = analyser;
@@ -162,14 +195,15 @@ const handleStop = () => {
     //define the draw function, 
     //which will be used to continuously 
    // update the canvas with the audio visualization.
-  console.log("Inside drawing")
+ // console.log("Inside drawing")
    // if the user doesn't interact the canvas will not be displayed  
       const WIDTH = canvas.width;
       const HEIGHT = canvas.height;
     // WIDTH and HEIGHT variables represent
     //the width and height of the canvas, respectively.
          
-    analyser.getByteFrequencyData(dataArray);
+        analyser.getByteFrequencyData(dataArray);
+      //  console.log(`DataArray ${dataArray}`)
 
 //_____BASE FRECUENCY  PROPS /DATA ARRAY / FASTFOURIERVALUE _______________________________________________________________        
 const findBaseFrequency = () => {
@@ -183,7 +217,7 @@ const findBaseFrequency = () => {
         maxAmplitudeIndex = i;
       }
     }
-
+ console.log(`maxAplitude frecuency ${maxAmplitudeIndex}`)
     const sampleRate = audioContext.sampleRate;
     const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
     const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
@@ -229,7 +263,7 @@ const findBaseFrequency = () => {
               //at the corresponding frequency.
            // console.log(barHeight);
             const frequency = i * (audioContext.sampleRate / fastFourierValue); // analyser.fftSize
-            console.log(frequency);
+          //  console.log(frequency);
               const pitch = frequencyToNote(frequency);
               pitchNotes.push(pitch);
           //  console.log(pitch);
@@ -326,7 +360,7 @@ const findBaseFrequency = () => {
       audioElement.pause();
       audioElement.currentTime = 0;
       setUserInteracted(false);
-      setIsAudioPlaying(false);
+     setIsAudioPlaying(false);
         
     };
   }, [audioLink, isAudioPlaying, fastFourierValue, canvasWidth, canvasHeight, visualAudioElement ]); // uses the changes of the audioLink to re-start

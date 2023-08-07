@@ -11,8 +11,8 @@ export const AudioUpload = ({ onFileUpload }) => {
       name: file.name,
       size: file.size,
       type: file.type,
-      lastModifiedDate: file.lastModifiedDate,
-
+      lastModifiedDate: file.lastModifiedDate.toLocaleTimeString(),
+// lastModifiedDate: file.lastModifiedDate.toLocaleDateString(),
     };
     if (file) {
       setAudioInput(file);
