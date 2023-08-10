@@ -1,18 +1,18 @@
 --
 -- Drop Tables
---
+--  CREATE DATABASE music;
 
 SET foreign_key_checks = 0;
-DROP TABLE if exists items;
+DROP TABLE if exists music;
 SET foreign_key_checks = 1;
 
 --
--- Create Tables
+-- Create Tables 
 --
-CREATE TABLE items(
+CREATE TABLE songs(
     id INT NOT NULL AUTO_INCREMENT, 
-    text VARCHAR(40) not null, 
-    complete BOOLEAN, PRIMARY KEY (id)
+    name VARCHAR (4000) not null, 
+    size INT(255), PRIMARY KEY (id)
     );
 
-INSERT INTO items(text, complete) VALUES('cleaning',false), ('painting',false), ('cooking',false), ('washing',false), ('studying',false), ('playing music',false), ('training',false) ;
+INSERT INTO songs(name, size ) VALUES('Maria - Dana Hill', 20), ('Hold me - Eleonor',15), ('Donwn down - Nora Hagse',21);

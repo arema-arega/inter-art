@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AudioUpload from './components/AudioUpload';
 //import AudioPlayer from './components/AudioPlayer';
 import CanvasVisualizer from './components/CanvasVisualizer';
+import infoMusic from './components/InfoMusic';
 import {NextUIProvider} from "@nextui-org/react";
 import './App.css'; 
 
@@ -9,15 +10,11 @@ import './App.css';
 function App() {
   const [audio, setAudio] = useState(null);
   const [info, setInfo] = useState({});
- 
   const keys = Object.keys(info)
 
-  
- const handleFileUpload = (loaded, infoTrack) => {
-  
- 
+  const handleFileUpload = (loaded, infoTrack) => {
+  console.log(infoTrack);
   setInfo(infoTrack);
-
   setAudio(loaded);
 };
 
@@ -55,6 +52,11 @@ function App() {
           </ol>
           ) :
           (<p> No Track</p>)}
+      </div>
+
+          
+      <div>
+        <infoMusic/>
       </div>
 
         </div>

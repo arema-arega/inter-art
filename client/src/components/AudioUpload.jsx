@@ -7,6 +7,7 @@ export const AudioUpload = ({ onFileUpload }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     const info = {
       name: file.name,
       size: file.size,
