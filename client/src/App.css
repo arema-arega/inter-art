@@ -1,67 +1,32 @@
-/* Define styles for elements with the class "App" */
-.App {
-  text-align: center;
-  background-size: cover all;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  margin: auto;
-  padding: 30px ;
-}
-
-
 div{
-  margin: 30px ;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Lilita One';
+  gap: 4rem;
+  align-self: center;
+  padding: 4rem;
+  justify-content: space-around;
 }
 
-button {
-  size: 15px;
-  border: none;
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.6));
- margin: 15px;
-  font-size: 10px; /* Default font size */
-  transition: font-size 0.3s ease-in-out; /* Add transition to font-size */
-}
-
-button:hover {
-  font-size: calc(20px * 1.07); /* Increase font size by 7% on hover */
-  color: rgb(5, 63, 255);
-  background-color: rgb(5, 2, 31);
-  transform: scale(1.07);
-}
-
-.Play{
-  background-color: rgb(227, 5, 5);
-  color: rgb(255, 255, 255);
-}
-
-.AudioUpload{
-  background-color: rgb(238, 255, 0);
-}
-
-.Decrease{
-  background-color: blue;
-  color: white;
+input {
+    margin-bottom: 3rem;
+    padding: 0.8rem;
+    
+    
+  }
   
-}
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
-.Increase{
-  background-color: rgb(2, 2, 89);
-  color: white;
-  
-}
-
-.Stop{
-  background-color: rgb(255, 230, 0);
-}
-
-.list{
-  background-color: rgb(238, 255, 0);
-}
-
-.InfoFrecuency{
-  background-color: greenyellow;
-}
+  p{
+    font: bold;
+  }

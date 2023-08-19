@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "./button";
 
 export const AudioUpload = ({ onFileUpload }) => {
   const [audioInput, setAudioInput] = useState(null);
@@ -23,7 +24,7 @@ export const AudioUpload = ({ onFileUpload }) => {
   };
 
   const handleUpload = (event) => {
-    event.preventDefault();
+   event.preventDefault();
     if (!audioInput) {
       setError(true);
       return;
@@ -36,12 +37,19 @@ export const AudioUpload = ({ onFileUpload }) => {
 
   return (
     <div>
+
       <form onSubmit={handleUpload}>
-        <label>
-          <input type="file" accept=".mp3" onChange={handleFileChange} />
-          <button className="AudioUpload" type="submit">
+        <label className="upload-label">
+          <input
+            type="file"
+            accept=".mp3"
+            onChange={handleFileChange}
+            placeholder="Choose an MP3 file"
+          />
+          <p className="message_to_user">UPLOAD AN MP3 FILE</p>
+          <Button className="button_upload" type="submit">
             Upload
-          </button>
+          </Button>
         </label>
       </form>
       {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}

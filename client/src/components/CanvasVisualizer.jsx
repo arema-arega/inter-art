@@ -480,8 +480,8 @@ Custom canvas sizes tailored to your specific visualization needs.
         <div>
                    <label>
                     Canvas Size
-                    <button className= "Increase" onClick={handleCanvasIncrease}>+</button>
-                    <button className= "Decrease" onClick={handleCanvasDecrease}>-</button>
+                    <button className= "button_increase" onClick={handleCanvasIncrease}>+</button>
+                    <button className= "button_decrease" onClick={handleCanvasDecrease}>-</button>
                     <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
                     </label>
             </div>
@@ -502,8 +502,8 @@ Custom canvas sizes tailored to your specific visualization needs.
             <div>
                    <label className='frecuency'>
                     Set Frecuency
-                    <button className= "Increase" onClick={handleFastIncrease}>+</button>
-                    <button className= "Decrease" onClick={handleFastDecrease}>-</button>
+                    <button className= "button_increase" onClick={handleFastIncrease}>+</button>
+                    <button className= "button_decrease" onClick={handleFastDecrease}>-</button>
                     <p>{fastFourierValue}</p>
                     </label>
             </div>

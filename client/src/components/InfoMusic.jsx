@@ -1,6 +1,6 @@
 import React, {useEffect,useState } from 'react';
 
-const infoMusic = () => {
+const InfoMusic = () => {
 
     return (
          <div>
@@ -17,4 +17,4 @@ const infoMusic = () => {
 };
 
 
-export default infoMusic
+export default InfoMusic

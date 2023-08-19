@@ -1,0 +1,53 @@
+
+
+button{border: 0;
+    line-height: 0.025rem;
+    padding: 0 2rem;
+    font-size: 2rem;
+    text-align: center;
+    color: white;
+    text-shadow: 0.01rem 0.01rem 0.01rem #000;
+    border-radius: 1rem;
+    width: 10rem; 
+    height: 4rem;
+    box-shadow: 0rem 0.06rem 0.08rempx rgba(0, 0, 0, 0.2);
+    font-family: league system-ui;
+    }
+
+    button:hover{
+        color: rgb(252, 252, 154);
+        background-image: linear-gradient(to top right, #0000ff, #ff0000);
+        font-size: 1.3rem;
+        width: 9.8rem; 
+        height: 3.8rem;
+      }
+
+  
+.button_upload{
+    color: white;
+  background-image: linear-gradient(to top right, #ff0000, #0000ff);
+  }
+  
+
+
+  .button_play{
+    color: white;
+  background-image: linear-gradient(to top right, #080808, #0000ff);
+  }
+
+  .button_stop{
+    color: white;
+  background-image: linear-gradient(to top right, #080808, #ff0000);
+  }
+
+  .button_increase{
+    color: white;
+  background-image: linear-gradient(to top right, #080808, #0000ff);
+  font-size: 3rem;
+  }
+
+  .button_decrease{
+ color: white;
+  background-image: linear-gradient(to top right, #080808, #ff00ae);
+  font-size: 3rem;
+  }

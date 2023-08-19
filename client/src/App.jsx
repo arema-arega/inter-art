@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import AudioUpload from './components/AudioUpload';
-//import AudioPlayer from './components/AudioPlayer';
+import Logo from './components/Logo';
 import CanvasVisualizer from './components/CanvasVisualizer';
-import infoMusic from './components/InfoMusic';
-import {NextUIProvider} from "@nextui-org/react";
+import InfoMusic from './components/InfoMusic';
+import { NextUIProvider } from "@nextui-org/react";
+import ScreenSize from './components/ScreenSize';
 import './App.css'; 
+import { Routes, Route, Link } from "react-router-dom";
+import { AudioUploadPage } from './pages/AudioUploadPage';
+import InfoList from './components/InfoList';
+import { InfoListPage } from './pages/InfoListPage';
 
 
 function App() {
+  const [currentScreenSize, setCurrentScreenSize] = useState('');
+
+  const handleScreenSizeChange = (newSize) => {
+      setCurrentScreenSize(newSize);
+  };
+
+
   const [audio, setAudio] = useState(null);
   const [info, setInfo] = useState({});
   const keys = Object.keys(info)
@@ -28,10 +40,44 @@ function App() {
   return (
     <div>
 <NextUIProvider>
-      <div className='App'>
-      
+        <div className='App'>
+          <Logo screenSize={currentScreenSize} />
+          
 
-      <div>
+
+          <header className="app__header">
+        <div className="app__header-container">
+          <Link className="app__header-link" to="./AudioUploadPage">
+            Logo
+          </Link>
+          <Link className="app__header-link" to="/InfoListPage">
+           Info
+          </Link>
+         
+        </div>
+          </header>
+          
+
+
+          <main className="app__main">
+        <Routes>
+        <Route path="/app" element={<AudioUploadPage />} />
+
+              <Route path="/app" element={<InfoListPage />} />
+          
+        </Routes>
+      </main>
+
+
+          
+          
+          
+          <div>
+
+        <ScreenSize onScreenSizeChange={handleScreenSizeChange} />    
+
+
+
         <AudioUpload onFileUpload={handleFileUpload} />
       </div>
 
@@ -42,21 +88,12 @@ function App() {
       </div>
 
       <div className='list'>
-        {keys.length > 0 ?
-      (<ol>
-          {keys.map((key) => (
-            <li key={key}>
-              {info[key]} 
-            </li>
-          ))};
-          </ol>
-          ) :
-          (<p> No Track</p>)}
+      
       </div>
-
+      <InfoList info={info} />
           
       <div>
-        <infoMusic/>
+        <InfoMusic/>
       </div>
 
         </div>
