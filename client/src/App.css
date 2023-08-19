@@ -1,3 +1,40 @@
+.background{
+  background-image: linear-gradient(to top right, #0015ff, #44ff00); 
+}
+
+
+header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.app__header-container{
+
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+}
+
+
+.app__header-link{
+  gap: 1rem;
+  padding: 2rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  color: white;
+  background-image: linear-gradient(to top right, #ff0000, #0000ff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+
 div{
   display: flex;
   flex-wrap: wrap;

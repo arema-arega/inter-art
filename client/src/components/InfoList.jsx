@@ -1,6 +1,11 @@
 import React from 'react';
 
 const InfoList = ({ info }) => {
+  if (!info) {
+    return null; // Return nothing if info is not provided
+  }
+
+  // POST para Database y en otro componente mostrar lista GET Usefeect
   const keys = Object.keys(info);
 
   return (
@@ -19,3 +24,4 @@ const InfoList = ({ info }) => {
 };
 
 export default InfoList;
+

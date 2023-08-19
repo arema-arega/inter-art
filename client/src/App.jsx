@@ -1,107 +1,74 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import { NextUIProvider } from "@nextui-org/react";
 import AudioUpload from './components/AudioUpload';
 import Logo from './components/Logo';
 import CanvasVisualizer from './components/CanvasVisualizer';
-import InfoMusic from './components/InfoMusic';
-import { NextUIProvider } from "@nextui-org/react";
+
 import ScreenSize from './components/ScreenSize';
 import './App.css'; 
-import { Routes, Route, Link } from "react-router-dom";
-import { AudioUploadPage } from './pages/AudioUploadPage';
+import { AudioUploadPage }  from './pages/AudioUploadPage';
 import InfoList from './components/InfoList';
 import { InfoListPage } from './pages/InfoListPage';
 
-
 function App() {
   const [currentScreenSize, setCurrentScreenSize] = useState('');
-
-  const handleScreenSizeChange = (newSize) => {
-      setCurrentScreenSize(newSize);
-  };
-
-
   const [audio, setAudio] = useState(null);
   const [info, setInfo] = useState({});
-  const keys = Object.keys(info)
+
+  const handleScreenSizeChange = (newSize) => {
+    setCurrentScreenSize(newSize);
+  };
 
   const handleFileUpload = (loaded, infoTrack) => {
-  console.log(infoTrack);
-  setInfo(infoTrack);
-  setAudio(loaded);
-};
+    console.log(infoTrack);
+    setInfo({ ...infoTrack, size: Math.round(infoTrack.size / 1000000) }); // 2048 mega
+    console.log({...infoTrack, size: Math.round(infoTrack.size / 1000000)});
 
-
-  
-  // <audio preload="auto" src="blob:http://localhost:5173/59f3b0a3-e93a-41c7-8a08-6454ea42047b"></audio>
+    setAudio(loaded);
+  };
 
   const audioLink = audio && URL.createObjectURL(audio);
 
- 
   return (
-    <div>
-<NextUIProvider>
+    <div className="background">
+      <NextUIProvider>
         <div className='App'>
           <Logo screenSize={currentScreenSize} />
-          
-
 
           <header className="app__header">
-        <div className="app__header-container">
-          <Link className="app__header-link" to="./AudioUploadPage">
-            Logo
-          </Link>
-          <Link className="app__header-link" to="/InfoListPage">
-           Info
-          </Link>
-         
-        </div>
+            <div className="app__header-container">
+              <Link className="app__header-link" to="/audio-upload">
+                Audio Upload
+              </Link>
+              <Link className="app__header-link" to="/info-list">
+                Info List
+              </Link>
+            </div>
           </header>
-          
-
 
           <main className="app__main">
-        <Routes>
-        <Route path="/app" element={<AudioUploadPage />} />
+            <Routes>
+            <Route path="/audio-upload" element={<AudioUploadPage onFileUpload={handleFileUpload} />} />
+              <Route path="/info-list" element={<InfoListPage info={info}/>} />
+            </Routes>
+          </main>
 
-              <Route path="/app" element={<InfoListPage />} />
-          
-        </Routes>
-      </main>
-
-
-          
-          
-          
           <div>
-
-        <ScreenSize onScreenSizeChange={handleScreenSizeChange} />    
-
-
-
-        <AudioUpload onFileUpload={handleFileUpload} />
-      </div>
-
-      {/*<AudioPlayer />*/}
-
-      <div>
-        <CanvasVisualizer audioLink={audioLink} />
-      </div>
-
-      <div className='list'>
-      
-      </div>
-      <InfoList info={info} />
-          
-      <div>
-        <InfoMusic/>
-      </div>
-
-        </div>
+            <ScreenSize onScreenSizeChange={handleScreenSizeChange} />
         
-        </NextUIProvider>
-    </div>
-  )
-};
 
+
+          </div>
+
+          <div>
+            <CanvasVisualizer audioLink={audioLink} />
+          </div>
+
+         </div>
+      </NextUIProvider>
+    </div>
+  );
+}
 
 export default App;

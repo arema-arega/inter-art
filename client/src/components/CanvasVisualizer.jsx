@@ -470,12 +470,12 @@ Custom canvas sizes tailored to your specific visualization needs.
 
             </div>
         <div>
-        <button className='Play' onClick={handlePlay}> PLAY </button>
-        </div> 
-          
-           <div>
-           <button className= "Stop" onClick={handleStop}> STOP VISUALIZER </button> 
-           </div>
+        <label className='play_stop'>
+        <button className="button_play" onClick={handlePlay}> PLAY </button>
+      
+            <button className="button_stop" onClick={handleStop}> STOP VISUALIZER </button> 
+            </label>
+        </div>
         
         <div>
                    <label>

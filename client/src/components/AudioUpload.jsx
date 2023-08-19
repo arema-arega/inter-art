@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "./button";
 
-export const AudioUpload = ({ onFileUpload }) => {
+const AudioUpload = ({ onFileUpload }) => {
   const [audioInput, setAudioInput] = useState(null);
   const [fileInfo, setFileInfo] = useState({});
   const [error, setError] = useState(false);
