@@ -14,9 +14,9 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const navigate = useNavigate(); 
 
   const canvasRef = useRef(null);
- 
   const audioRef = useRef(null);
   const analyserRef = useRef(null);
+  
   const [userInteracted, setUserInteracted] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [audioContext, setAudioContext] = useState(null);

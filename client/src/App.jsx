@@ -49,7 +49,7 @@ function App() {
                   AUDIO VISUALIZER
                 </Link>
                 <Link className="app__header-link" to="/info-list">
-                  INFO LIST
+                  SONG LIST
                 </Link>
               </div>
             </header>

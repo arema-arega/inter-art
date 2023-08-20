@@ -109,11 +109,11 @@ input {
 
   .list{
     padding: 1rem;
-    flex-direction: column;
+    flex-direction: row;
     border: 2px solid #ccc;
     border-radius: 10px;
     color: white;
-    background-image: linear-gradient(to top right, #000000, #0055ff4e); 
+    background-image: linear-gradient(to top right, #000000d3, #0400ffa5); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     size:15rem ; 
    
