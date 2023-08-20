@@ -37,17 +37,17 @@ button{border: 0;
 
   .button_stop{
     color: white;
-  background-image: linear-gradient(to top right, #080808, #ff0000);
+  background-image: linear-gradient(to top right, #ff0000, #1900ff);
   }
 
   .button_increase{
     color: white;
-  background-image: linear-gradient(to top right, #080808, #0000ff);
+  background-image: linear-gradient(to top right, #170283, #00ff62);
   font-size: 3rem;
   }
 
   .button_decrease{
  color: white;
-  background-image: linear-gradient(to top right, #080808, #ff00ae);
+  background-image: linear-gradient(to top right, #d60000b8, #fbff00);
   font-size: 3rem;
   }

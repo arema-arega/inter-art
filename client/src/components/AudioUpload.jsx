@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "./button";
+import { useNavigate } from 'react-router-dom';
 
 const AudioUpload = ({ onFileUpload }) => {
   const [audioInput, setAudioInput] = useState(null);
   const [fileInfo, setFileInfo] = useState({});
   const [error, setError] = useState(false);
+  const navigate = useNavigate(); 
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -33,6 +35,7 @@ const AudioUpload = ({ onFileUpload }) => {
     onFileUpload(audioInput, fileInfo);
     // setAudioInput(null); // cleans the form
     event.target.reset();
+    navigate('/audio-visualizer');
   };
 
   return (
@@ -52,7 +55,8 @@ const AudioUpload = ({ onFileUpload }) => {
           </Button>
         </label>
       </form>
-      {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}
+        {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}
+        
     </div>
   );
 };

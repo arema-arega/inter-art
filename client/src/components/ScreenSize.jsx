@@ -21,7 +21,7 @@ import React, { useState, useEffect } from 'react';
 const ScreenSize = ({ onScreenSizeChange }) => {
     const [screenSize, setScreenSize] = useState();
     const [breakpoint, setBreakpoint] = useState();
-
+    const [width, setWidth] = useState();
     const breakpoints = {
         XS: 576,
         SM: 767,
@@ -34,6 +34,8 @@ const ScreenSize = ({ onScreenSizeChange }) => {
     useEffect(() => {
         const handleResize = () => {
             const screenWidth = window.innerWidth;
+            console.log(screenWidth);
+            setWidth(screenWidth);
             setBreakpoint(screenWidth);
             setScreenSize(Object.keys(breakpoints).find(
                 key => screenWidth <= breakpoints[key]
@@ -49,8 +51,8 @@ const ScreenSize = ({ onScreenSizeChange }) => {
     }, [breakpoint]);
 
     useEffect(() => {
-        onScreenSizeChange(screenSize); // Call the prop function to send back the value
-    }, [screenSize, onScreenSizeChange]);
+        onScreenSizeChange(screenSize, width); // Call the prop function to send back the value
+    }, [screenSize, width, onScreenSizeChange]);
 
     return null;
 };

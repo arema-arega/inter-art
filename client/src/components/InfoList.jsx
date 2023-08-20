@@ -7,6 +7,15 @@ const InfoList = ({ info }) => {
 
   // POST para Database y en otro componente mostrar lista GET Usefeect
   const keys = Object.keys(info);
+  /*
+File {name: '01 Sai Sai.mp3', 
+lastModified: 1690824795222, 
+lastModifiedDate: Mon Jul 31 2023 19:33:15 GMT+0200 (hora de verano de Europa central), 
+webkitRelativePath: '', 
+size: 15797528, …}
+
+
+  */
 
   return (
     <div className='list'>
@@ -17,7 +26,9 @@ const InfoList = ({ info }) => {
           ))}
         </ol>
       ) : (
-        <p> No Track</p>
+          <div className="inside">
+            <p> No Track</p>
+            </div>
       )}
     </div>
   );

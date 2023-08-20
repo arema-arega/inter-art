@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 //manage a value that won't trigger a re-render, 
 //or store any mutable value that needs to be accessed across renders 
 //without causing a re - render.
-const AudioVisualizer = ({ audioLink }) => {
+const AudioVisualizer = ({ audioLink, currentScreenSize , currentScreenWidth }) => {
   const canvasRef = useRef(null);
  
   const audioRef = useRef(null);
@@ -407,13 +407,16 @@ const findBaseFrequency = () => {
   const handleCanvasIncrease = () => {
     let increaseWidth = canvasWidth * 2;
     let increaseHeight = canvasHeight * 2;
+    const PercentOfScreenWidth = 0.9 * currentScreenWidth;
+    const PercentOfScreenhight = 0.8 * currentScreenWidth;
+    console.log(PercentOfScreenhight);
 
-    if (increaseWidth < 7680 && increaseHeight < 4320 ) {
+    if (increaseWidth < (PercentOfScreenWidth) && increaseHeight < PercentOfScreenhight ) {
       setcanvasWidth(increaseWidth);
       setcanvasHeight(increaseHeight);
     } else {
-      setcanvasWidth(7680);
-      setcanvasHeight(4320);
+      setcanvasWidth(PercentOfScreenWidth.toString() );
+      setcanvasHeight(PercentOfScreenhight);
     }
 
   };
@@ -463,9 +466,22 @@ Custom canvas sizes tailored to your specific visualization needs.
 
 */
     
-    return (
+  return (
+      
+    
 
-        <div>
+    <div>
+         <div className="audio_visualizer_controlers">
+      
+          <label className='play_stop'>
+            <button className="button_play" onClick={handlePlay}> PLAY </button>
+      
+            <button className="button_stop" onClick={handleStop}> STOP VISUALIZER </button> 
+          </label>
+        </div>
+
+
+
             <div className= "audio_visualizer_canvas">
             <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />
 
@@ -473,17 +489,15 @@ Custom canvas sizes tailored to your specific visualization needs.
         
 
             <div className="audio_visualizer_controlers">
-        <label className='play_stop'>
-        <button className="button_play" onClick={handlePlay}> PLAY </button>
-      
-            <button className="button_stop" onClick={handleStop}> STOP VISUALIZER </button> 
-            </label>
         
-                   <label>
+        
+                   <label className="canvas_info">
                     Canvas Size
                     <button className= "button_increase" onClick={handleCanvasIncrease}>+</button>
                     <button className= "button_decrease" onClick={handleCanvasDecrease}>-</button>
-                    <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
+          <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
+          <p> Screen Width {currentScreenWidth} - Screen Size {currentScreenSize}</p>
+          
           </label>
           
 

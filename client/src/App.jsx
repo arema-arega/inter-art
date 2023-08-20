@@ -12,12 +12,16 @@ import './App.css';
 
 function App() {
   const [currentScreenSize, setCurrentScreenSize] = useState('');
+  const [currentScreenWidth, setCurrentScreenWidth] = useState('');
   const [audio, setAudio] = useState(null);
   const [info, setInfo] = useState({});
   const [currentPage, setCurrentPage] = useState('logo');
 
-  const handleScreenSizeChange = (newSize) => {
+  const handleScreenSizeChange = (newSize,newWidth) => {
     setCurrentScreenSize(newSize);
+    setCurrentScreenWidth(newWidth);
+    console.log(newSize)
+    console.log(newWidth)
   };
 
   const handleFileUpload = (loaded, infoTrack) => {
@@ -42,13 +46,13 @@ function App() {
             <header className="app__header">
               <div className="app__header-container">
                 <Link className="app__header-link" to="/audio-upload">
-                  Audio Upload
+                  AUDIO UPLOAD
                 </Link>
                 <Link className="app__header-link" to="/audio-visualizer">
-                  Audio Visualizer
+                  AUDIO VISUALIZER
                 </Link>
                 <Link className="app__header-link" to="/info-list">
-                  Info List
+                  INFO LIST
                 </Link>
               </div>
             </header>
@@ -59,7 +63,11 @@ function App() {
               <Route path="/logo" element={<LogoPage />} />
               <Route path="/start" element={<StartPage />} />
               <Route path="/audio-upload" element={<AudioUploadPage onFileUpload={handleFileUpload} />} />
-              <Route path="/audio-visualizer" element={<AudioVisualizerPage audioLink={audioLink} />} />
+              <Route path="/audio-visualizer" element={<AudioVisualizerPage
+                audioLink={audioLink}
+                currentScreenSize={currentScreenSize}
+                currentScreenWidth={currentScreenWidth}
+              />} />
               <Route path="/info-list" element={<InfoListPage info={info} />} />
             </Routes>
           </main>

@@ -1,3 +1,6 @@
+
+
+
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
   align-items: center;
@@ -13,7 +16,7 @@ header{
   padding: 2rem;
   border: 2px solid #ccc;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-image: linear-gradient(to top right, #0015ff, #00ff11); 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
@@ -35,18 +38,21 @@ header{
   color: white;
   background-image: linear-gradient(to top right, #ff0000, #0000ff);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  
 }
 
 
 div{
   display: flex;
   flex-wrap: wrap;
-  font-family: 'Lilita One';
+ 
   gap: 4rem;
   align-self: center;
   padding: 4rem;
   justify-content: space-around;
 }
+
+
 
 input {
     margin-bottom: 3rem;
@@ -95,7 +101,7 @@ input {
     flex-direction: column;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #ffffff;
+    background-image: linear-gradient(to top right, #0015ff, #00ff11); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     size:15rem ; 
     
@@ -106,7 +112,23 @@ input {
     flex-direction: column;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #ffffff;
+    color: white;
+    background-image: linear-gradient(to top right, #000000, #0055ff4e); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     size:15rem ; 
+   
+     
+  }
+
+  .info_container{
+    padding: 1rem;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-image: linear-gradient(to top right, #ff0000, #e6ff04); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    size:15rem ; 
+    -webkit-box-shadow:0px 0px 80px 83px rgba(46,133,255,0.9);
+    -moz-box-shadow: 0px 0px 80px 83px rgba(46,133,255,0.9);
+    box-shadow: 0px 0px 80px 83px rgba(46,133,255,0.9);
   }
