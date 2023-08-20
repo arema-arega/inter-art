@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 //manage a value that won't trigger a re-render, 
 //or store any mutable value that needs to be accessed across renders 
 //without causing a re - render.
-const CanvasVisualizer = ({ audioLink }) => {
+const AudioVisualizer = ({ audioLink }) => {
   const canvasRef = useRef(null);
  
   const audioRef = useRef(null);
@@ -21,8 +21,8 @@ const CanvasVisualizer = ({ audioLink }) => {
   const [pitchNotes, setPitchNotes] = useState([]);
   const [baseFrequency, setBaseFrequency] = useState(null);
   const [fastFourierValue, setFastFourierValue] = useState(32);
-  const [canvasWidth, setcanvasWidth] = useState(100);
-  const [canvasHeight, setcanvasHeight] = useState(50);
+  const [canvasWidth, setcanvasWidth] = useState(800);
+  const [canvasHeight, setcanvasHeight] = useState(400);
   const [visualAudioElement, setVisualAudioElement] = useState(null);
 
 
@@ -149,11 +149,7 @@ const handleStop = () => {
     //Creates a new Audio object with the provided audioLink,
     //representing the audio file to be visualized.
       
-      /*
-    const audio = new Audio(audioSrc)
-    const audioRef = useRef(audio)
-
-      */
+    
       audioRef.current = audioElement;
       setVisualAudioElement(audioElement);
       analyserRef.current = analyser;
@@ -192,6 +188,7 @@ const handleStop = () => {
 
 //_____________________________________________________________________________
       const draw = () => {
+        console.log(fastFourierValue);
     //define the draw function, 
     //which will be used to continuously 
    // update the canvas with the audio visualization.
@@ -218,8 +215,10 @@ const findBaseFrequency = () => {
       }
     }
  console.log(`maxAplitude frecuency ${maxAmplitudeIndex}`)
-    const sampleRate = audioContext.sampleRate;
-    const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
+  const sampleRate = audioContext.sampleRate;
+ 
+  const frequencyBinWidth = sampleRate / fastFourierValue; //analyser.fftSize;
+  
     const baseFrequency = maxAmplitudeIndex * frequencyBinWidth;    
       
     setBaseFrequency(baseFrequency);
@@ -381,7 +380,8 @@ const findBaseFrequency = () => {
         let increase = fastFourierValue * 2;
 
         if (increase < 4096) {
-            setFastFourierValue(increase);  
+          setFastFourierValue(increase); 
+          console.log(increase);
         } else {
             setFastFourierValue(4096)
         }
@@ -393,7 +393,8 @@ const findBaseFrequency = () => {
         const decrease = fastFourierValue / 2;
 
         if (decrease > 32) {
-            setFastFourierValue(decrease);  
+          setFastFourierValue(decrease); 
+          console.log(decrease);
         } else {
             setFastFourierValue(32)
         }
@@ -465,42 +466,28 @@ Custom canvas sizes tailored to your specific visualization needs.
     return (
 
         <div>
-            <div>
+            <div className= "audio_visualizer_canvas">
             <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />
 
-            </div>
-        <div>
+        </div>
+        
+
+            <div className="audio_visualizer_controlers">
         <label className='play_stop'>
         <button className="button_play" onClick={handlePlay}> PLAY </button>
       
             <button className="button_stop" onClick={handleStop}> STOP VISUALIZER </button> 
             </label>
-        </div>
         
-        <div>
                    <label>
                     Canvas Size
                     <button className= "button_increase" onClick={handleCanvasIncrease}>+</button>
                     <button className= "button_decrease" onClick={handleCanvasDecrease}>-</button>
                     <p> Canvas Width {canvasWidth} - Canvas Height {canvasHeight}</p>
-                    </label>
-            </div>
+          </label>
+          
 
-
-
-
-            <div className= "InfoFrecuency">
-            {infoFrecuency !== null ? (
-      <ol>
-              <li>Frecuency - {infoFrecuency} </li>
-              <li> Pitch - {pitchNotes} </li>
-              <li> Base Frecuency - {baseFrequency}</li>
-      </ol>
-            ) : ''}
-            </div>
-
-            <div>
-                   <label className='frecuency'>
+          <label className='frecuency'>
                     Set Frecuency
                     <button className= "button_increase" onClick={handleFastIncrease}>+</button>
                     <button className= "button_decrease" onClick={handleFastDecrease}>-</button>
@@ -508,14 +495,27 @@ Custom canvas sizes tailored to your specific visualization needs.
                     </label>
             </div>
 
-        {/*<div>
-          <AudioPlayer visualAudioElement={visualAudioElement} audioContext={audioContext} isAudioPlaying={isAudioPlaying} />
-            </div>*/} 
-        
+
+
+
+            <div >
+            {infoFrecuency !== null ? (
+      <ol className= "InfoFrecuency">
+              <li>Frecuency - {infoFrecuency} </li>
+              <li> Pitch - {pitchNotes} </li>
+              <li> Base Frecuency - {baseFrequency}</li>
+      </ol>
+            ) : ''}
+            </div>
+
+            
+            
+
+      
 
 
         </div>
     )
 };
 
-export default CanvasVisualizer;
+export default AudioVisualizer;

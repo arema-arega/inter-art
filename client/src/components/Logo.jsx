@@ -1,35 +1,34 @@
-import React from 'react';
-import { clsx } from 'clsx'; 
-import { Image } from "@nextui-org/react";
+import React, { useState } from 'react';
+import { clsx } from 'clsx';
+import { Image } from '@nextui-org/react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
+const Logo = ({ currentScreenSize }) => {
+  const percentage = Math.min(currentScreenSize / 12, 50);
+  const navigate = useNavigate(); // Initialize the navigation function
 
-const Logo = ({ children, currentScreenSize }) => {
-    // Calculate the percentage based on the currentScreenSize
-    const percentage = Math.min(currentScreenSize / 12, 100); // Adjust the divisor as needed
+  // Handle the click event
+  const handleLogoClick = () => {
+    navigate('/start'); // Navigate to the StartPage when the logo is clicked
+  };
 
-    return (
-        <div>
-            <Image
-                className={clsx("logo-class-name", "other-class-names")}
-                src="/logoInterArt.svg"
-                alt="Logo"
-                isZoomed
-                sizes={`(max-width: ${currentScreenSize}px) 20vw, 5vw`}
-                width={percentage + '%'}
-                height={percentage + '%'}
-                radius='full'
-                shadow='lg'
-                
-                layout="responsive"
-                
-            />
-
-
-
-
-            {children}
-        </div>
-    );
-}
+  return (
+    <div>
+      <Image
+        className={clsx('logo-class-name')}
+        src="/logoInterArt.svg"
+        alt="Logo"
+        isZoomed
+        sizes={`(max-width: ${currentScreenSize}px) 20vw, 5vw`}
+        width={percentage + '%'}
+        height={percentage + '%'}
+        radius="full"
+        shadow="lg"
+        onPointerDown={handleLogoClick} // Use the custom click handler
+        layout="responsive"
+      />
+    </div>
+  );
+};
 
 export default Logo;

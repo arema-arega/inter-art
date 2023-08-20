@@ -1,5 +1,7 @@
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
+  align-items: center;
+  
 }
 
 
@@ -16,7 +18,8 @@ header{
 }
 
 .app__header-container{
-
+  padding: 1rem;
+  flex-direction: row;
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #ffffff;
@@ -64,6 +67,46 @@ input {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  p{
-    font: bold;
+ 
+
+  .InfoFrecuency{
+  padding: 1rem;
+  flex-direction: column;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+  }
+
+  .audio_visualizer_canvas{
+    padding: 1rem;
+    margin:4rem ;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+  }
+
+
+  .audio_visualizer_controlers{
+   padding: 1rem;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    size:15rem ; 
+    
+  }
+
+  .list{
+    padding: 1rem;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    size:15rem ; 
   }
