@@ -15,7 +15,7 @@ function App() {
   const [currentScreenWidth, setCurrentScreenWidth] = useState('');
   const [audio, setAudio] = useState(null);
   const [info, setInfo] = useState({});
-  const [currentPage, setCurrentPage] = useState('logo');
+ 
 
   const handleScreenSizeChange = (newSize,newWidth) => {
     setCurrentScreenSize(newSize);
@@ -35,14 +35,11 @@ function App() {
     <div className="background">
       <NextUIProvider>
         <div className="App">
-          {currentPage === 'logo' ? (
-            <Logo
-              screenSize={currentScreenSize}
-              onClick={() => setCurrentPage('start')}
-            />
-          ) : null}
+         
+            <Logo screenSize={currentScreenSize} />
+         
 
-          {currentPage !== 'start' ? (
+          
             <header className="app__header">
               <div className="app__header-container">
                 <Link className="app__header-link" to="/audio-upload">
@@ -56,7 +53,7 @@ function App() {
                 </Link>
               </div>
             </header>
-          ) : null}
+        
 
           <main className="app__main">
             <Routes>

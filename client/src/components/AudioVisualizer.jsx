@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //import AudioPlayer from './AudioPlayer';
 
 //Import React and the necessary hooks
@@ -8,7 +9,10 @@ import React, { useEffect, useRef, useState } from 'react';
 //manage a value that won't trigger a re-render, 
 //or store any mutable value that needs to be accessed across renders 
 //without causing a re - render.
-const AudioVisualizer = ({ audioLink, currentScreenSize , currentScreenWidth }) => {
+const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
+  
+  const navigate = useNavigate(); 
+
   const canvasRef = useRef(null);
  
   const audioRef = useRef(null);
@@ -19,11 +23,107 @@ const AudioVisualizer = ({ audioLink, currentScreenSize , currentScreenWidth }) 
     
   const [infoFrecuency, setInfoFrequency] = useState(null);
   const [pitchNotes, setPitchNotes] = useState([]);
+  const[pitchValue, setPichValue]= useState("")
   const [baseFrequency, setBaseFrequency] = useState(null);
   const [fastFourierValue, setFastFourierValue] = useState(32);
   const [canvasWidth, setcanvasWidth] = useState(800);
   const [canvasHeight, setcanvasHeight] = useState(400);
   const [visualAudioElement, setVisualAudioElement] = useState(null);
+//  const [audioElement, setAudioElement] = useState(null);
+
+// HANDELING the Changes -- 
+
+  const handleFastIncrease = () => {
+    let increase = fastFourierValue * 2;
+
+    if (increase < 4096) {
+      setFastFourierValue(increase); 
+      console.log(increase);
+    } else {
+        setFastFourierValue(4096)
+    }
+
+    
+};
+
+const handleFastDecrease = () => {
+    const decrease = fastFourierValue / 2;
+
+    if (decrease > 32) {
+      setFastFourierValue(decrease); 
+      console.log(decrease);
+    } else {
+        setFastFourierValue(32)
+    }
+
+    
+};
+
+
+
+const handleCanvasIncrease = () => {
+let increaseWidth = canvasWidth * 2;
+let increaseHeight = canvasHeight * 2;
+const PercentOfScreenWidth = 0.9 * currentScreenWidth;
+const PercentOfScreenhight = 0.8 * currentScreenWidth;
+console.log(PercentOfScreenhight);
+
+if (increaseWidth < (PercentOfScreenWidth) && increaseHeight < PercentOfScreenhight ) {
+  setcanvasWidth(increaseWidth);
+  setcanvasHeight(increaseHeight);
+} else {
+  setcanvasWidth(PercentOfScreenWidth.toString() );
+  setcanvasHeight(PercentOfScreenhight);
+}
+
+};
+const handleCanvasDecrease = () => {
+let decreaseWidth = canvasWidth / 2;
+let decreaseHeight = canvasHeight / 2;
+
+if (decreaseWidth > 100 && decreaseHeight > 50 ) {
+   setcanvasWidth(decreaseWidth);
+  setcanvasHeight(decreaseHeight);
+} else {
+  setcanvasWidth(100)
+  setcanvasHeight(50)
+}
+
+};
+
+
+/*
+Standard Web Banner Sizes:
+
+728 x 90 pixels (Leaderboard)
+300 x 250 pixels (Medium Rectangle)
+336 x 280 pixels (Large Rectangle)
+160 x 600 pixels (Wide Skyscraper)
+300 x 600 pixels (Half-Page Ad)
+Standard Screen Resolutions:
+
+1920 x 1080 pixels (Full HD)
+2560 x 1440 pixels (2K)
+3840 x 2160 pixels (4K)
+5120 x 2880 pixels (5K)
+7680 x 4320 pixels (8K)
+Social Media Graphics:
+
+1200 x 630 pixels (Facebook Link Post)
+1080 x 1080 pixels (Instagram Square)
+1200 x 675 pixels (LinkedIn Link Post)
+1500 x 500 pixels (Twitter Header)
+Responsive Web Design:
+
+Varies based on the layout and breakpoints of your design.
+Common breakpoints include 320px, 768px, 1024px, and 1440px.
+Custom Sizes:
+
+Custom canvas sizes tailored to your specific visualization needs.
+
+*/
+
+
 
 
  
@@ -73,11 +173,11 @@ const toNextTrack = () => {
  
 const handleStop = () => {
   console.log("The user has pressed STOP")
-  audioContext.close();
-  console.log(audioRef.current.pause);
-  audioRef.current.pause();
-  audioRef.current.currentTime = 0;
- setIsAudioPlaying(false);
+ setAudioContext(audioContext.suspend()) ;
+ audioRef.current.pause();
+ //audioRef.current.currentTime = 0;
+  setIsAudioPlaying(false);
+ // navigate('/audio-visualizer');
   
   
   
@@ -145,7 +245,7 @@ const handleStop = () => {
 
     
    //_AUDIO ELEMENT_____PROP AUDIOLINK__/ ANALYSER___________________________________________________________________________  
-    const audioElement = new Audio(audioLink);
+ const audioElement = new Audio(audioLink);
     //Creates a new Audio object with the provided audioLink,
     //representing the audio file to be visualized.
       
@@ -265,7 +365,8 @@ const findBaseFrequency = () => {
           //  console.log(frequency);
               const pitch = frequencyToNote(frequency);
               pitchNotes.push(pitch);
-          //  console.log(pitch);
+        //   console.log(pitch);
+            setPichValue(pitch);
                   canvasCtx.fillStyle = `rgb(${barHeight +30}, 50, 50)`;
               
               // set the canvasCtx.fillStyle to a color value that depends on the barHeight. 
@@ -355,14 +456,14 @@ const findBaseFrequency = () => {
     //__________________________________________________________________________________  
 
       return () => {
-       
+      
       audioElement.pause();
       audioElement.currentTime = 0;
       setUserInteracted(false);
      setIsAudioPlaying(false);
         
     };
-  }, [audioLink, isAudioPlaying, fastFourierValue, canvasWidth, canvasHeight, visualAudioElement ]); // uses the changes of the audioLink to re-start
+  }, [audioLink, isAudioPlaying, fastFourierValue, pitchValue, canvasWidth, canvasHeight, visualAudioElement,  ]); // uses the changes of the audioLink to re-start
 
     /* Inside the useEffect hook,
     set up the audio context, 
@@ -376,95 +477,7 @@ const findBaseFrequency = () => {
   
     
 
-    const handleFastIncrease = () => {
-        let increase = fastFourierValue * 2;
-
-        if (increase < 4096) {
-          setFastFourierValue(increase); 
-          console.log(increase);
-        } else {
-            setFastFourierValue(4096)
-        }
-
-        
-    };
-
-    const handleFastDecrease = () => {
-        const decrease = fastFourierValue / 2;
-
-        if (decrease > 32) {
-          setFastFourierValue(decrease); 
-          console.log(decrease);
-        } else {
-            setFastFourierValue(32)
-        }
-
-        
-  };
-  
-
-
-  const handleCanvasIncrease = () => {
-    let increaseWidth = canvasWidth * 2;
-    let increaseHeight = canvasHeight * 2;
-    const PercentOfScreenWidth = 0.9 * currentScreenWidth;
-    const PercentOfScreenhight = 0.8 * currentScreenWidth;
-    console.log(PercentOfScreenhight);
-
-    if (increaseWidth < (PercentOfScreenWidth) && increaseHeight < PercentOfScreenhight ) {
-      setcanvasWidth(increaseWidth);
-      setcanvasHeight(increaseHeight);
-    } else {
-      setcanvasWidth(PercentOfScreenWidth.toString() );
-      setcanvasHeight(PercentOfScreenhight);
-    }
-
-  };
-  const handleCanvasDecrease = () => {
-    let decreaseWidth = canvasWidth / 2;
-    let decreaseHeight = canvasHeight / 2;
-  
-    if (decreaseWidth > 100 && decreaseHeight > 50 ) {
-       setcanvasWidth(decreaseWidth);
-      setcanvasHeight(decreaseHeight);
-    } else {
-      setcanvasWidth(100)
-      setcanvasHeight(50)
-    }
-
-  };
-
-
-/*
-Standard Web Banner Sizes:
-
-728 x 90 pixels (Leaderboard)
-300 x 250 pixels (Medium Rectangle)
-336 x 280 pixels (Large Rectangle)
-160 x 600 pixels (Wide Skyscraper)
-300 x 600 pixels (Half-Page Ad)
-Standard Screen Resolutions:
-
-1920 x 1080 pixels (Full HD)
-2560 x 1440 pixels (2K)
-3840 x 2160 pixels (4K)
-5120 x 2880 pixels (5K)
-7680 x 4320 pixels (8K)
-Social Media Graphics:
-
-1200 x 630 pixels (Facebook Link Post)
-1080 x 1080 pixels (Instagram Square)
-1200 x 675 pixels (LinkedIn Link Post)
-1500 x 500 pixels (Twitter Header)
-Responsive Web Design:
-
-Varies based on the layout and breakpoints of your design.
-Common breakpoints include 320px, 768px, 1024px, and 1440px.
-Custom Sizes:
-
-Custom canvas sizes tailored to your specific visualization needs.
-
-*/
+   
     
   return (
       
@@ -516,7 +529,8 @@ Custom canvas sizes tailored to your specific visualization needs.
             {infoFrecuency !== null ? (
       <ol className= "InfoFrecuency">
               <li>Frecuency - {infoFrecuency} </li>
-              <li> Pitch - {pitchNotes} </li>
+            <li> NOTES - {pitchNotes} </li>
+            <li> Pitch - {pitchValue} </li>
               <li> Base Frecuency - {baseFrequency}</li>
       </ol>
             ) : ''}

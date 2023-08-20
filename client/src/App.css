@@ -128,7 +128,7 @@ input {
     background-image: linear-gradient(to top right, #ff0000, #e6ff04); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     size:15rem ; 
-    -webkit-box-shadow:0px 0px 80px 83px rgba(46,133,255,0.9);
-    -moz-box-shadow: 0px 0px 80px 83px rgba(46,133,255,0.9);
-    box-shadow: 0px 0px 80px 83px rgba(46,133,255,0.9);
+    -webkit-box-shadow:0px 0px 80px 83px rgba(46, 133, 255, 0.684);
+    -moz-box-shadow: 0px 0px 80px 83px rgba(46, 133, 255, 0.612);
+    box-shadow: 0px 0px 80px 83px rgba(46, 133, 255, 0.501);
   }

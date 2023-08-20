@@ -9,7 +9,7 @@ const Logo = ({ currentScreenSize }) => {
 
   // Handle the click event
   const handleLogoClick = () => {
-    navigate('/start'); // Navigate to the StartPage when the logo is clicked
+    navigate("/audio-upload"); // Navigate to the StartPage when the logo is clicked
   };
 
   return (
