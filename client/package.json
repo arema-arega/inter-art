@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.0.5",
+    "@tombatossals/react-chords": "^0.2.10",
     "clsx": "^2.0.0",
     "framer-motion": "^10.15.1",
     "react": "^18.2.0",
