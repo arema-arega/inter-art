@@ -9,7 +9,19 @@ https://youtu.be/5Nw31b64smo
 
 
 
-- "For music and Audio enthusiast"
+#### "Interactive Tool For Music and Audio enthusiasts"
+##### This phase of the App aims to:
+- Analyze the audio input of the user.
+- Visualize real time frequencies and notes.
+- Show a list of the audio uploads kept inside the database and the current audio.
+- Visualize the selected chords and a guitar chart (the selected chord should appear on the guitar chart example)
+
+##### Future phases:
+- Integrating sound visualization components for interactive uses
+- Adding an integration with Images manipulation
+- user login
+
+
 
 ## Workstation
 - Visual Studio Code editor https://code.visualstudio.com/
@@ -86,7 +98,7 @@ return:
 
 
 
-## AUDIOUPLOAD page
+## AudioUpload page
 Renders: AudioUpload component
 
 ### Objectives that need implementation:
