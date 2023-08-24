@@ -14,9 +14,13 @@ https://youtu.be/5Nw31b64smo
 ## APP component
 ### App is the parent component of all the pages:
 - AudioUploadPage
+- - renders AudioUpload component
 - AudioVisualizerPage
+- - renders AudioVisualizer components
 - InfoListPage
+- - renders InfoSong & InfoList components
 - ChordsVisualizerPage
+- - renders ChordKeyCreator & ChordSuffixCreator components
 - StartPage (that hasn't been used)
 
 ### Handles:
@@ -24,19 +28,21 @@ https://youtu.be/5Nw31b64smo
 
 - currentScreenSize (to Logo Component and to AudioVisualizer component)
 
-- currentScreenWidth (to AudioVisualizer component)The the changes of the audio input coming from the AudioUpload component and extracts the information to be sent as prop:
+- currentScreenWidth (to AudioVisualizer component)
 
-- audio (Passed to the AudioVisualizerPage as {audiolink} and sent again as a prop to the Audiovisualizer component)
+- The the changes of the audio input coming from the AudioUpload component and extracts the information to be sent as prop:
 
-- info (Passed to the InforListPageused as {info} and sent again as a prop to the infolist component and the songlist component)
+- - audio (Passed to the AudioVisualizerPage as {audiolink} and sent again as a prop to the Audiovisualizer component)
+
+- - info (Passed to the InforListPageused as {info} and sent again as a prop to the infolist component and the songlist component)
 
 
 ### Structure:
 constants (UseState & Eventhandelers)
 return:
-- <Logo>
-- <header> (links)
-- <main> (rutes)
+- Logo component
+- header (links)
+- main (rutes)
 
 
 
