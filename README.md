@@ -1,13 +1,15 @@
 # interART
 ## CodeOp - First Student APP
 
-name: InterART
+- name: InterART
 
 ### Demo idea video:
+
 https://youtu.be/5Nw31b64smo
 
 
-"For music and Audio enthusiast"
+
+- "For music and Audio enthusiast"
 
 ## APP component
 ### App is the parent component of all the pages:
@@ -42,13 +44,8 @@ return:
 ## APP CSS
 ### App CSS filehandles all the customization of the app except: 
 - the buttons:because they have their own css file:button.css
-- the Typo family that is included on the main HTML
-index.html file:
+- the Typo family that is included on the main HTML, index.html file:
  @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600&display=swap');    
-
-
-
-
 
 
 
@@ -79,6 +76,8 @@ AudioUpload
 ### Functions:
 - handles the upload and obtains the data from an audiofile object, that will be passed to the app parent component that then will send it to:
 - AudioVisualizer => that may passed in the future to the Chord VisualizerInfoListPage (Song List) / the DataBase Music (table songs)
+
+
 
 ## Audio Visualizer page
 Renders the AudioVisualizer component
@@ -134,7 +133,7 @@ AudioVisualizer
 #### The post on the SongList component it's been triggered even after using a condition:
  
 - if (!info) {console.log("No song info provided");               
-  return; // Exit the function if info is null };
+- return; // Exit the function if info is null };
 
 #### and also within the UseEffect, so this need to be solved
 
@@ -144,14 +143,9 @@ AudioVisualizer
 
 #### Default info on the table songs:
 
-+----+-------------------------+------+
-| id | name                    | size |
-+----+-------------------------+------+
-|  1 | Maria - Dana Hill       |   20 |
-|  2 | Hold me - Eleonor       |   15 |
-|  3 | Donwn down - Nora Hagse |   21 |
-+----+-------------------------+------+
-
+- id: 1
+- name: Maria - Dana Hill
+- size:  20
 
 
 - on the InfoList Component the user can see the {info} of the audio that it's been played
@@ -160,14 +154,14 @@ AudioVisualizer
 
 ## SongList component
 
-#### the SongList Component is rendered on the InfoList Page
+-  the SongList Component is rendered on the InfoList Page
 
 ### Objectives that need implementation:
 
 #### The post on the SongList component it's been triggered even after using a condition 
 
 - if (!info) {console.log("No song info provided");                
-return; // Exit the function if info is null };
+- return; // Exit the function if info is null };
 
 #### and also within the UseEffect, so this need to be solved
 
@@ -176,18 +170,14 @@ return; // Exit the function if info is null };
 
 #### Default info on the table songs:
 
-+----+-------------------------+------+
-| id | name                    | size |
-+----+-------------------------+------+
-|  1 | Maria - Dana Hill       |   20 |
-|  2 | Hold me - Eleonor       |   15 |
-|  3 | Donwn down - Nora Hagse |   21 |
-+----+-------------------------+------+
+- id: 1
+- name: Maria - Dana Hill
+- size:  20
 
 
 ## infoList component
 
-#### the InfoList Component is rendered on the InfoListPageallowing the user to see the {info} of the audio that it's been played.
+- The InfoList Component is rendered on the InfoListPage allowing the user to see the {info} of the audio that it's been played.
 
 ### ChordVsualizer pageChordVisualizer page renders: 
 - KeyCreator for Selecting the Key of ChordC, D , Eb...etc
@@ -204,7 +194,7 @@ return; // Exit the function if info is null };
 
 ## KeyCreator component
 
-### KeyCreator component is renderedon the ChordsVisualizerPage for Selecting the Key of ChordC, D , Eb...etc
+- KeyCreator component is renderedon the ChordsVisualizerPage for Selecting the Key of ChordC, D , Eb...etc
 
 - https://github.com/tombatossals/react-chords
 
@@ -219,34 +209,32 @@ return; // Exit the function if info is null };
 
 ## ChordSuffixCreator component
 
-### ChordSuffixCreator component is renderedon the ChordsVisualizerPage for Selecting the type of Chordminor, mayor...etc
+- ChordSuffixCreator component is renderedon the ChordsVisualizerPage for Selecting the type of Chordminor, mayor...etc
 
 
 ## StartPageStart Page:
 ### Objectives that need implementation:
 - This page was made as the initial point for the user to navigatethe idea was that the user sees the Big Logo presses on it and the journey within the app starts
 
-- On the LOGO component:
-const handleLogoClick = () => {navigate("/audio-upload"); 
-// Navigate to the AudioUpload page when the logo is clicked};
+- On the LOGO component: const handleLogoClick = () => {navigate("/audio-upload"); 
+
+- Navigate to the AudioUpload page when the logo is clicked};
 
 - The conditional rendering on the app component has not been implemented for this to happen.
 
 
 ## Logo Component
 ### the Logo component is rendered on the app componentso it appears on all the other pages.
-- When the Logo Image is clicked the user is taken to the AudioUpload Page:
-const handleLogoClick = () => {navigate("/audio-upload");};
+- When the Logo Image is clicked the user is taken to the AudioUpload Page: const handleLogoClick = () => {navigate("/audio-upload");};
 
-- The logo uses the library: 
- https://nextui.org/docs/components/image  
- (it's the only component using it on the app)
+- The logo uses the library: https://nextui.org/docs/components/image  (it's the only component using it on the app)
 
 - The Logo component uses the currentScreenSize prop sent from the app parent component
 
 
 ### Objectives that need implementation:  
-- To put a max and min condition on the rendering of the logo on the percentage value: const percentage = Math.min(currentScreenSize / 12, 50);
+- To put a max and min condition on the rendering of the logo on the percentage value: 
+- const percentage = Math.min(currentScreenSize / 12, 50);
 
 ## ScreenSize component
 ### The ScreenSize component is used as a prop that the app parent sends to:
@@ -255,8 +243,10 @@ const handleLogoClick = () => {navigate("/audio-upload");};
 
 
 ## Button component
-Button: This Component is used through all the app componentsit is using a CSS file "./button.css"with the different customizations
+### Button: This Component is used through all the app componentsit is using a CSS file 
+"./button.css" with the different customizations
 
 ## Button CSS component
-Button Customization: This Component is used through all the app componentsit Customizes the <button> 
+### Button Customization: 
+- This Component is used through all the app componentsit Customizes the button 
 
