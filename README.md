@@ -11,6 +11,37 @@ https://youtu.be/5Nw31b64smo
 
 - "For music and Audio enthusiast"
 
+## Workstation
+- Visual Studio Code editor https://code.visualstudio.com/
+
+
+## Backend
+- MySQL https://www.mysql.com/
+- Postman https://www.postman.com/
+- Node.js https://nodejs.org/en/about
+
+
+## Frontend
+- React https://react.dev/
+- CSS https://developer.mozilla.org/en-US/docs/Web/CS
+
+
+## Apis
+- Web Audio Api https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+- Tones https://github.com/bit101/tones
+
+
+## libraries
+- React Router https://reactrouter.com/en/main/start/tutorial
+- react-chords https://github.com/tombatossals/react-chords
+- nextUI https://nextui.org/docs/components/image
+- clsx https://www.npmjs.com/package/clsx
+
+
+
+
+
+
 ## APP component
 ### App is the parent component of all the pages:
 - AudioUploadPage
@@ -249,10 +280,9 @@ AudioVisualizer
 
 
 ## Button component
-### Button: This Component is used through all the app componentsit is using a CSS file 
-"./button.css" with the different customizations
+- Button: This Component is used through all the app components. Using a CSS file "./button.css" with the different customizations
 
 ## Button CSS component
 ### Button Customization: 
-- This Component is used through all the app componentsit Customizes the button 
+- This Component is used through all the app components it's used to customizes all the buttons. 
 
