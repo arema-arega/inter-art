@@ -1,4 +1,33 @@
-import React, { useState } from 'react';
+/*
+the Logo component is rendered on the app component
+so it appears on all the other pages.
+
+When the Logo Image is clicked the user is taken to the AudioUpload Page:
+const handleLogoClick = () => {
+    navigate("/audio-upload"); 
+  };
+
+  the logo uses the library:
+  https://nextui.org/docs/components/image
+  (it's the only component using it on the app)
+
+  The Logo component uses the 
+  currentScreenSize prop sent from the app parent component
+
+  Objectives that need implementation:
+  I need to put a max and min condition on the rendering of the logo
+ on the percentage value:
+ const percentage = Math.min(currentScreenSize / 12, 50);
+
+
+
+
+
+*/
+
+
+
+import React from 'react';
 import { clsx } from 'clsx';
 import { Image } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
@@ -9,7 +38,7 @@ const Logo = ({ currentScreenSize }) => {
 
   // Handle the click event
   const handleLogoClick = () => {
-    navigate("/audio-upload"); // Navigate to the StartPage when the logo is clicked
+    navigate("/audio-upload"); // Navigate to the AudioUpload page when the logo is clicked
   };
 
   return (

@@ -1,6 +1,26 @@
+/*
+App CSS file
+handles all the customization of the app
+except the buttons:
+because they have their own css file:
+button.css
+
+and the Typo family
+that is included on the main HTML
+index.html file
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600&display=swap');
+    
 
 
 
+
+
+*/
+
+/*
+background its the backing image of all the app
+*/
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
   align-items: center;
@@ -41,7 +61,7 @@ header{
   
 }
 
-
+/* all the divs */
 div{
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +81,8 @@ input {
     
   }
   
+/* all labels */
+
   label {
     display: flex;
     flex-direction: column;
@@ -74,7 +96,7 @@ input {
   }
 
  
-
+/* AUDIO VISUALIZER*/
   .InfoFrecuency{
   padding: 1rem;
   flex-direction: column;
@@ -107,6 +129,7 @@ input {
     
   }
 
+  /* on pages like AudioVisualizer Infolist */
   .list{
     padding: 1rem;
     flex-direction: row;
@@ -133,7 +156,7 @@ input {
     box-shadow: 0px 0px 80px 83px rgba(46, 133, 255, 0.501);
   }
 
-
+/* ChordVisulizerPage */
   .Chord{
   padding: 2rem;
   flex-direction: row;

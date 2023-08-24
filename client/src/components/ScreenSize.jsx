@@ -1,4 +1,11 @@
 /*
+The ScreenSize component is used as a prop
+that the app parent sends to:
+- AudioVisualizer component
+- to the Logo component
+
+
+
 Here's a list of common screen sizes used for responsive design breakpoints:
 
 Mobile Phones:

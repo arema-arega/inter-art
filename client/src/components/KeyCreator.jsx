@@ -1,8 +1,15 @@
+/*
+KeyCreator component is rendered
+on the ChordsVisualizerPage for Selecting the Key of Chord
+C, D , Eb...etc
 
 
 //https://github.com/tombatossals/react-chords
 
-/*
+
+
+For using the database:
+
 Database:
 https://github.com/tombatossals/chords-db#chords-db
 1- git clone https://github.com/tombatossals/chords-db.git

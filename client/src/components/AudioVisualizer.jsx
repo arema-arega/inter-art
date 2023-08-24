@@ -1,6 +1,47 @@
+/*
+AudioVisualizer
+
+"For Musicians and sound enthusiasts"
+
+
+
+Objectives that need implementation:
+
+The fast fourier it's not been recognized 
+within the UseEffect on the Audiovisalizer component 
+So the frequency analyzer  and the canvas render are affected
+
+The stop function it's not working it's got do with the audio content creation within the useeffect
+
+Live Frequency
+
+BPM analyzer
+
+Root note
+
+To connect the obtained data to the chord creation component so the user will be able to receive chord suggestions.
+
+
+
+
+Functions:
+The user uploads an audio on the AudioVisualizer component to obtain the data from it:
+
+Each capture Frequency is transformed into notes and saved in the data array to be shown after
+
+Sound bits that are rendered into colors inside the canvas 
+with a draw function, while it's been played live.
+
+The user can select the frequency and the canvas size of the visualizer
+
+*/
+
+
+
+
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-//import AudioPlayer from './AudioPlayer';
+//import { useNavigate } from 'react-router-dom';
+
 
 //Import React and the necessary hooks
 //useRef is a React hook that provides a way to create a mutable object 
@@ -11,7 +52,7 @@ import { useNavigate } from 'react-router-dom';
 //without causing a re - render.
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
   
-  const navigate = useNavigate(); 
+ // const navigate = useNavigate(); 
 
   const canvasRef = useRef(null);
   const audioRef = useRef(null);

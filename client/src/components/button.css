@@ -1,4 +1,11 @@
+/*
+Button Customization: 
+This Component is used through all the app components
+it Customizes the <button> 
 
+
+
+*/
 
 button{border: 0;
     line-height: 0.025rem;

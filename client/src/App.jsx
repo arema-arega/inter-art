@@ -1,3 +1,22 @@
+/*
+App is the parent component of all the pages:-AudioUploadPage-AudioVisualizerPage-InfoListPage-ChordsVisualizerPage- StartPage (that hasn't been used)
+Handles:
+The the changes of the Screensize coming from the ScreenSize component and sends the props:- currentScreenSize (to Logo Component and to AudioVisualizer component)
+- currentScreenWidth (to AudioVisualizer component)
+The the changes of the audio input coming from the AudioUpload component and extracts the information to be sent as prop:
+audio (Passed to the AudioVisualizerPage as {audiolink} and sent again as a prop to the Audiovisualizer component)info (Passed to the InforListPageused as {info} and sent again as a prop to the infolist component and the songlist component)
+Structure:
+constants
+return:
+- <Logo>
+- <header> (links)
+- <main> (rutes)
+
+
+
+*/
+
+
 import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { NextUIProvider } from '@nextui-org/react';

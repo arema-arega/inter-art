@@ -1,3 +1,9 @@
+/*
+the InfoList Component is rendered on the InfoListPage
+allowing the user to see the {info} of the audio that it's been played.
+*/
+
+
 import React from 'react';
 
 const InfoList = ({ info }) => {

@@ -1,3 +1,14 @@
+/*
+ChordSuffixCreator component is rendered
+on the ChordsVisualizerPage for Selecting the type of Chord
+minor, mayor...etc
+
+
+
+*/
+
+
+
 import React, { useState } from 'react';
 
 //import guitar from '../chords-db/lib/guitar';
