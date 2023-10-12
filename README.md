@@ -1,7 +1,13 @@
 # interART
 ## CodeOp - First Student APP
+
+
 ![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/10%20-Logo.png?raw=true)
 
+- by Arema Arega
+- https://www.arema-arega.com/
+- @ FullStack Develoment Course 
+- https://codeop.tech/full-stack-development-bootcamp/
 
 
 ### Demo idea video:
@@ -234,7 +240,13 @@ AudioVisualizer
 
 - The InfoList Component is rendered on the InfoListPage allowing the user to see the {info} of the audio that it's been played.
 
-### ChordVsualizer pageChordVisualizer page renders: 
+
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/23%20-%20Menu%20with%20Chord%20Visualizer.png?raw=true)
+
+## ChordVsualizer page
+
+
+ChordVisualizer page renders: 
 - KeyCreator for Selecting the Key of ChordC, D , Eb...etc
 - ChordSuffixCreator for Selecting the type of Chordmenor, mayor...etc
 - Both combined (KeyCreator & ChordSuffixCreator) create the Actual Chordthat should be used for rendering the:
@@ -246,6 +258,8 @@ AudioVisualizer
 - To give the possibility to the user to move the position of the notes on the guitar chartand obtain the name of the chord
 - To play a chord and to obtain its name and possible positions on a guitar chart from the audio input.
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/20%20-%20Guitar%20Chord%20Visualizer.png?raw=true)
+## Infolist page
 
 ## GuitarChords 
 - GuitarChords component is rendered on the ChordsVisualizerPage to show a guitar chart with the selected chord position.
@@ -263,6 +277,7 @@ AudioVisualizer
 - - - const GuitarChords = (selectedKeyValue, selectedSuffix)
 - - to match their values with react-chords library to render the actual Chord that has been selected on the ChordsVisualizerPage.
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/21%20-%20Chord%20Visulizer.png?raw=true)
 
 ## KeyCreator component
 
