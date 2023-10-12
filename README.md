@@ -246,6 +246,8 @@ AudioVisualizer
 - To give the possibility to the user to move the position of the notes on the guitar chartand obtain the name of the chord
 - To play a chord and to obtain its name and possible positions on a guitar chart from the audio input.
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/20%20-%20Guitar%20Chord%20Visualizer.png?raw=true)
+
 
 ## GuitarChords 
 - GuitarChords component is rendered on the ChordsVisualizerPage to show a guitar chart with the selected chord position.
@@ -263,6 +265,7 @@ AudioVisualizer
 - - - const GuitarChords = (selectedKeyValue, selectedSuffix)
 - - to match their values with react-chords library to render the actual Chord that has been selected on the ChordsVisualizerPage.
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/21%20-%20Chord%20Visulizer.png?raw=true)
 
 ## KeyCreator component
 
@@ -277,7 +280,7 @@ AudioVisualizer
 - cd chords-db
 
 
-
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/22%20-%20Chord%20Key%20Visualizer.png?raw=true)
 ## ChordSuffixCreator component
 
 - ChordSuffixCreator component is renderedon the ChordsVisualizerPage for Selecting the type of Chordminor, mayor...etc
@@ -320,3 +323,8 @@ AudioVisualizer
 ### Button Customization: 
 - This Component is used through all the app components it's used to customizes all the buttons. 
 
+## Errors
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/7-Errrores.png?raw=true)
+
+## Draft
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/9-Dise%C3%B1o%20primario.png?raw=true)
