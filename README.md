@@ -1,7 +1,8 @@
 # interART
 ## CodeOp - First Student APP
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/10%20-Logo.png?raw=true)
 
-- name: InterART
+
 
 ### Demo idea video:
 
@@ -55,7 +56,7 @@ https://youtu.be/5Nw31b64smo
 
 
 
-
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/14-menu.png?raw=true)
 
 
 ## APP component
@@ -93,10 +94,13 @@ return:
 
 
 ## APP CSS
-### App CSS filehandles all the customization of the app except: 
+### App CSS file handles all the customization of the app except: 
 - the buttons:because they have their own css file:button.css
 - the Typo family that is included on the main HTML, index.html file:
  @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600&display=swap');    
+
+
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/15-%20Audio%20Upload%20Page.png?raw=true)
 
 
 ## AudioUpload page
@@ -113,6 +117,9 @@ Renders: AudioUpload component
 - AudioVisualizer => that may passed in the future to the Chord VisualizerInfoListPage (Song List) / the DataBase Music (table songs)
 
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/16-%20Uploading.png?raw=true)
+
+
 ## AudioUpload Component
 
 AudioUpload
@@ -127,6 +134,7 @@ AudioUpload
 - handles the upload and obtains the data from an audiofile object, that will be passed to the app parent component that then will send it to:
 - AudioVisualizer => that may passed in the future to the Chord VisualizerInfoListPage (Song List) / the DataBase Music (table songs)
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/18-%20Audio%20Visualizer%20page%20The%20Fast%20Fourier%20no%20funciona.png?raw=true)
 
 ## Audio Visualizer page
 Renders the AudioVisualizer component
@@ -145,6 +153,7 @@ Renders the AudioVisualizer component
 - Sound bits that are rendered into colors inside the canvas with a draw function, while it's being played live.
 - The user can select the frequency and the canvas size of the visualizer
 
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/5-Analizing%20-%20Agosto%202%20-%20Fast%20Furier%20Funcionaba.png?raw=true)
 
 ## AudioVisualizer component
 
@@ -167,7 +176,7 @@ AudioVisualizer
 - Sound bits that are rendered into colors inside the canvas with a draw function, while it's been played live.
 - The user can select the frequency and the canvas size of the visualizer
 
-
+![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/19-%20Song%20List%20Page.png?raw=true)
 ## Infolist page
 
 ### Infolist page renders renders:
