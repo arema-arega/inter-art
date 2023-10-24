@@ -57,6 +57,7 @@ https://youtu.be/5Nw31b64smo
 ## Deploy
 
 ### GitHub Pages 
+https://www.geeksforgeeks.org/deployment-of-react-application-using-github-pages/
 
 1 - Set the Repository Public
 
@@ -65,6 +66,15 @@ https://youtu.be/5Nw31b64smo
 npm install gh-pages --save-dev
 
 ´´´´
+
+And React-Scripts 
+https://www.npmjs.com/package/react-scripts
+
+´´´´
+npm i react-scripts
+´´´´
+
+
 3 - Add to package.json file
 
 Example:
@@ -90,6 +100,19 @@ For my Project:
 
 ´´´´
 
+5 - Commit
+
+´´´´
+git add .
+git commit -m "commit"
+git push
+´´´´
+
+6 - Deploy
+
+´´´´
+npm run deploy
+´´´´
 
 
 ![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/14-menu.png?raw=true)
