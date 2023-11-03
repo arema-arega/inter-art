@@ -60,6 +60,65 @@ https://youtu.be/5Nw31b64smo
 - nextUI https://nextui.org/docs/components/image
 - clsx https://www.npmjs.com/package/clsx
 
+## Deploy
+
+### GitHub Pages 
+https://www.geeksforgeeks.org/deployment-of-react-application-using-github-pages/
+
+1 - Set the Repository Public
+
+2 - Install GitHub Pages
+´´´´
+npm install gh-pages --save-dev
+
+´´´´
+
+And React-Scripts 
+https://www.npmjs.com/package/react-scripts
+
+´´´´
+npm i react-scripts
+´´´´
+
+
+3 - Add to package.json file
+
+Example:
+´´´´
+"homepage": "https://<Username>.github.io/<Repository-name>"
+´´´´
+
+For my Project:
+´´´´
+"homepage": "https://arema-arega.github.io/inter-art/"
+´´´´
+
+4 - Then we will add “deploy” and “predeploy “properties in the scrip
+
+´´´´
+"scripts":{
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build", 
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+}
+
+´´´´
+
+5 - Commit
+
+´´´´
+git add .
+git commit -m "commit"
+git push
+´´´´
+
+6 - Deploy
+
+´´´´
+npm run deploy
+´´´´
 
 
 ![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/14-menu.png?raw=true)
@@ -261,6 +320,7 @@ ChordVisualizer page renders:
 ![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/20%20-%20Guitar%20Chord%20Visualizer.png?raw=true)
 ## Infolist page
 
+
 ## GuitarChords 
 - GuitarChords component is rendered on the ChordsVisualizerPage to show a guitar chart with the selected chord position.
 
@@ -279,6 +339,7 @@ ChordVisualizer page renders:
 
 ![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/21%20-%20Chord%20Visulizer.png?raw=true)
 
+
 ## KeyCreator component
 
 - KeyCreator component is renderedon the ChordsVisualizerPage for Selecting the Key of ChordC, D , Eb...etc
@@ -292,7 +353,7 @@ ChordVisualizer page renders:
 - cd chords-db
 
 
-
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/22%20-%20Chord%20Key%20Visualizer.png?raw=true)
 ## ChordSuffixCreator component
 
 - ChordSuffixCreator component is renderedon the ChordsVisualizerPage for Selecting the type of Chordminor, mayor...etc
@@ -335,3 +396,8 @@ ChordVisualizer page renders:
 ### Button Customization: 
 - This Component is used through all the app components it's used to customizes all the buttons. 
 
+## Errors
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/7-Errrores.png?raw=true)
+
+## Draft
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/9-Dise%C3%B1o%20primario.png?raw=true)

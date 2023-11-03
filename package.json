@@ -1,8 +1,14 @@
 {
+  "homepage": "https://arema-arega.github.io/inter-art/",
   "name": "inter-art",
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "start": "nodemon ./bin/www",
     "migrate": "node model/database.js"
   },
@@ -15,6 +21,10 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.1",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
