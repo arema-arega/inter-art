@@ -2,7 +2,7 @@
 ## CodeOp - First Student APP
 
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/10%20-Logo.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/10%20-Logo.png?raw=true)
 
 - by Arema Arega
 - https://www.arema-arega.com/
@@ -121,7 +121,7 @@ npm run deploy
 ´´´´
 
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/14-menu.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/14-menu.png?raw=true)
 
 
 ## APP component
@@ -165,7 +165,7 @@ return:
  @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600&display=swap');    
 
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/15-%20Audio%20Upload%20Page.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/15-%20Audio%20Upload%20Page.png?raw=true)
 
 
 ## AudioUpload page
@@ -182,7 +182,7 @@ Renders: AudioUpload component
 - AudioVisualizer => that may passed in the future to the Chord VisualizerInfoListPage (Song List) / the DataBase Music (table songs)
 
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/16-%20Uploading.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/16-%20Uploading.png?raw=true)
 
 
 ## AudioUpload Component
@@ -199,7 +199,7 @@ AudioUpload
 - handles the upload and obtains the data from an audiofile object, that will be passed to the app parent component that then will send it to:
 - AudioVisualizer => that may passed in the future to the Chord VisualizerInfoListPage (Song List) / the DataBase Music (table songs)
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/18-%20Audio%20Visualizer%20page%20The%20Fast%20Fourier%20no%20funciona.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/18-%20Audio%20Visualizer%20page%20The%20Fast%20Fourier%20no%20funciona.png?raw=true)
 
 ## Audio Visualizer page
 Renders the AudioVisualizer component
@@ -218,7 +218,7 @@ Renders the AudioVisualizer component
 - Sound bits that are rendered into colors inside the canvas with a draw function, while it's being played live.
 - The user can select the frequency and the canvas size of the visualizer
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/5-Analizing%20-%20Agosto%202%20-%20Fast%20Furier%20Funcionaba.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/5-Analizing%20-%20Agosto%202%20-%20Fast%20Furier%20Funcionaba.png?raw=true)
 
 ## AudioVisualizer component
 
@@ -241,7 +241,7 @@ AudioVisualizer
 - Sound bits that are rendered into colors inside the canvas with a draw function, while it's been played live.
 - The user can select the frequency and the canvas size of the visualizer
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/19-%20Song%20List%20Page.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/19-%20Song%20List%20Page.png?raw=true)
 ## Infolist page
 
 ### Infolist page renders renders:
@@ -300,7 +300,7 @@ AudioVisualizer
 - The InfoList Component is rendered on the InfoListPage allowing the user to see the {info} of the audio that it's been played.
 
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/23%20-%20Menu%20with%20Chord%20Visualizer.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/23%20-%20Menu%20with%20Chord%20Visualizer.png?raw=true)
 
 ## ChordVsualizer page
 
@@ -317,7 +317,7 @@ ChordVisualizer page renders:
 - To give the possibility to the user to move the position of the notes on the guitar chartand obtain the name of the chord
 - To play a chord and to obtain its name and possible positions on a guitar chart from the audio input.
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/20%20-%20Guitar%20Chord%20Visualizer.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/20%20-%20Guitar%20Chord%20Visualizer.png?raw=true)
 ## Infolist page
 
 
@@ -337,7 +337,7 @@ ChordVisualizer page renders:
 - - - const GuitarChords = (selectedKeyValue, selectedSuffix)
 - - to match their values with react-chords library to render the actual Chord that has been selected on the ChordsVisualizerPage.
 
-![Local Image](https://github.com/arema-arega/inter-art/blob/newbranch/client/public/images%20of%20the%20process/21%20-%20Chord%20Visulizer.png?raw=true)
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/21%20-%20Chord%20Visulizer.png?raw=true)
 
 
 ## KeyCreator component
