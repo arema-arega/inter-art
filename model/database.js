@@ -9,9 +9,9 @@ const DB_NAME = process.env.DB_NAME;
 
 const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
-  user: DB_USER || "root",
+  user: DB_USER  ,
   password: DB_PASS,
-  database: DB_NAME || "music",
+  database: DB_NAME,
   multipleStatements: true
 });
 
