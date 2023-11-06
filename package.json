@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.1",
+    "package": "^1.0.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",
     "tough-cookie": "^4.1.3"

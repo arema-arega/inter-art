@@ -7,16 +7,15 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const analyserRef = useRef(null);
   const pausedAudioTimeRef = useRef(0);
   const sourceNodeRef = useRef(null);
- 
+  const dataArrayInfoRef = useRef(null);
+  const fastFourierValueRef = useRef(32);
 
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
+
   const [infoFrequency, setInfoFrequency] = useState(null);
-  const [dataArrayInfo, setDataArrayInfo] = useState(null);
-  const [bufferLengthInfo, setBufferLengthInfo] = useState(null);
   const [pitchNotes, setPitchNotes] = useState([]);
   const [pitchValue, setPitchValue] = useState(null);
   const [baseFrequency, setBaseFrequency] = useState(null);
-  const [fastFourierValue, setFastFourierValue] = useState(32);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
  
@@ -29,16 +28,23 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
 
   // _________________FAST FOURIER VALUE
   const handleFastIncrease = () => {
-    let increase = fastFourierValue * 2;
+    let increase = fastFourierValueRef.current * 2;
     if (increase <= 4096) {
-      setFastFourierValue(increase);
+      
+     fastFourierValueRef.current = increase;
+  
+      console.log("fastFourierValueRef.current", fastFourierValueRef.current);
+    
     }
   };
 
   const handleFastDecrease = () => {
-    let decrease = fastFourierValue / 2;
+    let decrease = fastFourierValueRef.current / 2;
     if (decrease >= 32) {
-      setFastFourierValue(decrease);
+
+    //  setFastFourierValue(decrease);
+      fastFourierValueRef.current = decrease;
+      console.log("fastFourierValueRef.current", fastFourierValueRef.current);
     }
   };
 
@@ -99,14 +105,15 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     if (audioRef.current.currentTime !== 0) {
       audioRef.current.currentTime = pausedAudioTimeRef.current
     }
-    setIsAudioPlaying(true);
+ 
+    draw();
     handleIsPlaying();
   }
 
   const createAnalyser = () => {
     const analizer = audioConstextRef.current.createAnalyser();
     analyserRef.current = analizer;
-    analyserRef.current.fftSize = fastFourierValue;
+    analyserRef.current.fftSize = fastFourierValueRef.current;
 
     console.log("analyserRef.current", analyserRef.current);
     console.log("analyserRef.current.fftSize", analyserRef.current.fftSize);
@@ -129,16 +136,13 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
        
       // https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
       
-        audioRef.current.addEventListener('pause', () => {
-          setIsAudioPlaying(false);
-        });
+        
 
       audioRef.current.addEventListener('canplaythrough', () => {
-        
-      audioRef.current.play();
        
-      draw();
-        });
+        audioRef.current.play();
+     
+      });
       
     } catch (error) {
       console.error("Error starting audio playback:", error);
@@ -177,31 +181,34 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
 
     }
    
-    setIsAudioPlaying(false);
+   
   };
 
   const draw = () => {
-    if (!isAudioPlaying) return;
-
+  
     const canvas = canvasRef.current;
     const canvasCtx = canvas.getContext('2d');
-    canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     canvasCtx.fillStyle = 'rgb(0, 0, 0)';
     canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+     
+  //  console.log("let see if it's playing");
+   
+     
 
     const bufferLength = analyserRef.current.frequencyBinCount;
-    setBufferLengthInfo(bufferLength);
-    const dataArray = new Uint8Array(bufferLength);
-    setDataArrayInfo(dataArray);
-
-  
+   
+    dataArrayInfoRef.current = new Uint8Array(bufferLength);
+   
+  //  console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
+ // console.log("bufferLength", bufferLength);
     const barWidth = (canvasWidth / bufferLength) * 2.5;
     let x = 0;
     let pitcNotesArray = [];
 
     for (let i = 0; i < bufferLength; i++) {
-      const barHeight = dataArray[i];
-      const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValue);
+      
+      const barHeight = dataArrayInfoRef.current[i];
+      const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current );
       setInfoFrequency(frequency);
 
       const pitch = frequencyToNote(frequency);
@@ -240,7 +247,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   useEffect(() => {
     if (audioConstextRef.current) {
       audioConstextRef.current.resume().then(() => {
-        setIsAudioPlaying(false); 
+       
       
       });
     }
@@ -288,8 +295,11 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
           <button className="button_decrease" onClick={handleFastDecrease}>
             -
           </button>
-          <p>{fastFourierValue}</p>
+          
+          <h2>{(fastFourierValueRef.current)}</h2>
+         
         </label>
+       
       </div>
 
       <div >
