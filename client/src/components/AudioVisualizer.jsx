@@ -9,13 +9,13 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const sourceNodeRef = useRef(null);
   const dataArrayInfoRef = useRef(null);
   const fastFourierValueRef = useRef(32);
-
+  const pitchValueRef = useRef(null);
+  const bufferLengthRef  = useRef(null);
 
 
   const [infoFrequency, setInfoFrequency] = useState(null);
   const [pitchNotes, setPitchNotes] = useState([]);
-  const [pitchValue, setPitchValue] = useState(null);
-  const [baseFrequency, setBaseFrequency] = useState(null);
+ const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
  
@@ -111,14 +111,12 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   }
 
   const createAnalyser = () => {
-    const analizer = audioConstextRef.current.createAnalyser();
-    analyserRef.current = analizer;
-    analyserRef.current.fftSize = fastFourierValueRef.current;
-
-    console.log("analyserRef.current", analyserRef.current);
-    console.log("analyserRef.current.fftSize", analyserRef.current.fftSize);
+    const analyser = audioConstextRef.current.createAnalyser();
+    analyser.fftSize = fastFourierValueRef.current;
+    analyserRef.current = analyser;
+    bufferLengthRef.current = analyser.frequencyBinCount;
+    dataArrayInfoRef.current = new Uint8Array(bufferLengthRef.current);
   };
-
 
   const handleIsPlaying = async () => {
     
@@ -186,35 +184,37 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
 
   const draw = () => {
   
-    const canvas = canvasRef.current;
-    const canvasCtx = canvas.getContext('2d');
-    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-    canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+  const canvas = canvasRef.current;
+  const canvasCtx = canvas.getContext('2d');
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
      
   //  console.log("let see if it's playing");
-   
+ 
      
+    if (analyserRef.current) {
+      const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+      analyserRef.current.getByteFrequencyData(dataArray);
+      dataArrayInfoRef.current = dataArray;
+    }
 
-    const bufferLength = analyserRef.current.frequencyBinCount;
-   
-    dataArrayInfoRef.current = new Uint8Array(bufferLength);
-   
-  //  console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
- // console.log("bufferLength", bufferLength);
-    const barWidth = (canvasWidth / bufferLength) * 2.5;
+    console.log("bufferLengthRef.current" , bufferLengthRef.current);
+    const barWidth = (canvasWidth / bufferLengthRef.current) * 2.5;
+    console.log("barWidth", barWidth);
     let x = 0;
     let pitcNotesArray = [];
 
-    for (let i = 0; i < bufferLength; i++) {
-      
+    for (let i = 0; i < bufferLengthRef.current; i++) {
+      console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
       const barHeight = dataArrayInfoRef.current[i];
-      const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current );
+      console.log("barHeight", barHeight);
+      const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
+     // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
       setInfoFrequency(frequency);
-
-      const pitch = frequencyToNote(frequency);
-      setPitchValue(pitch);
-      pitcNotesArray.push(pitch);
-
+      pitchValueRef.current = frequencyToNote(frequency);
+      pitcNotesArray.push(pitchValueRef.current);
+     
+     
       canvasCtx.fillStyle = `rgb(${barHeight + 30}, 50, 50)`;
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
       x += barWidth + 1;
@@ -223,7 +223,25 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     requestAnimationFrame(draw);
   };
 
+/*
+x: The x-coordinate of the upper-left corner of the rectangle.
+y: The y-coordinate of the upper-left corner of the rectangle.
+w: The width of the rectangle.
+h: The height of the rectangle.
 
+
+x and y define the starting point (top-left corner) of the rectangle.
+w is the width of the rectangle.
+h is the height of the rectangle.
+The method CanvasRect.fillRect() will draw a filled rectangle on the canvas starting from the (x, y) position and extending w units to the right and h units downwards.
+
+For example:
+
+canvasCtx.fillRect(10, 20, 100, 50);
+This line of code will draw a filled rectangle on the canvas starting at coordinates (10, 20) with a width of 100 units and a height of 50 units.
+
+
+*/
   
 
 
@@ -308,7 +326,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
           <ol >
             <li>Frequency - {infoFrequency} </li>
             <li>NOTES - {pitchNotes.join(', ')} </li>
-            <li>Pitch - {pitchValue} </li>
+            <li>Pitch - {pitchValueRef.current} </li>
             <li>Base Frequency - {baseFrequency}</li>
             </ol>
             </div>
