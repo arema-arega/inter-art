@@ -6,6 +6,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const audioConstextRef = useRef(null);
   const analyserRef = useRef(null);
   const pausedAudioTimeRef = useRef(0);
+  const sourceNodeRef = useRef(null);
  
 
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -93,7 +94,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       createAudioContext();
       actulizedAudioRef();
       createAnalyser();
-     
+      createSourceNode();
     }
     if (audioRef.current.currentTime !== 0) {
       audioRef.current.currentTime = pausedAudioTimeRef.current
@@ -118,9 +119,9 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       
       
        
-      const sourceNode = createSourceNode();
-      if (sourceNode && analyserRef.current && audioConstextRef.current) {
-        sourceNode.connect(analyserRef.current);
+      
+      if (sourceNodeRef.current && analyserRef.current && audioConstextRef.current) {
+        sourceNodeRef.current.connect(analyserRef.current);
         analyserRef.current.connect(audioConstextRef.current.destination);
       } else {
         console.error('Invalid sourceNode, analyser, or audio context.');
@@ -154,8 +155,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       actulizedAudioRef();
     }
     if (audioConstextRef.current && audioRef.current) {
-      const sourceNode = audioConstextRef.current.createMediaElementSource(audioRef.current);
-      return sourceNode;
+      sourceNodeRef.current = audioConstextRef.current.createMediaElementSource(audioRef.current);
+      return sourceNodeRef.current;
     } else {
       console.error('Audio context or audio element is not available.');
       console.log("audioConstextRef.current", audioConstextRef.current);
@@ -240,6 +241,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     if (audioConstextRef.current) {
       audioConstextRef.current.resume().then(() => {
         setIsAudioPlaying(false); 
+      
       });
     }
   }, [audioConstextRef.current]);
