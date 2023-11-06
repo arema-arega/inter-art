@@ -39,7 +39,7 @@ const SongList = (props) => {
 
     const postsongs = async (info) => {
         try {
-            if (!info) {
+            if (!props.info) {
                 console.log("No song info provided");
                 return; // Exit the function if info is null
             }
@@ -72,11 +72,14 @@ const SongList = (props) => {
     useEffect(() => {
         console.log("props.info in useEffect:", props.info);
         getsongs();
-        if (props.info !== null) {
-            console.log("Calling postsongs with info:", props.info);
-            postsongs(props.info);
+        if (props.info !== null && Object.keys(props.info).length !== 0) {
+          console.log("Calling postsongs with info:", props.info);
+          postsongs(props.info);
+           
+            
         }
-    }, [props.info]);
+          
+     }, [props.info]);
     
 
     const getsongs = async () => {
@@ -113,14 +116,22 @@ const SongList = (props) => {
         <div className="list">
             <h2>Song List</h2>
             {error && <p>Error: {error}</p>}
-            <ul>
-                {songs.map(song => (
-                    <li key={song.id}>
-                        {song.id} - {song.name} / {song.size} MB
-                        <button className="delete" onClick={() => handleDelete(song.id)}>X</button>
-                    </li>
-                ))}
-            </ul>
+            {songs.length > 0 ? (
+                <ul>
+                    {songs.map(song => (
+                        <li key={song.id}>
+                            {song.id} - {song.name} / {song.size} MB
+                            <button className="delete" onClick={() => handleDelete(song.id)}>X</button>
+                        </li>
+                    ))}
+                </ul>
+            ) :(
+                <p>No songs available</p>
+            )}
+           
+            
+
+
         </div>
     );
 };
