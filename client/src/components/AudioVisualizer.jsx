@@ -10,7 +10,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const dataArrayInfoRef = useRef(null);
   const fastFourierValueRef = useRef(32);
   const pitchValueRef = useRef(null);
-  const bufferLengthRef  = useRef(null);
+  const bufferLengthRef = useRef(null);
+  const baseFrequencyRef = useRef(null);
 
 
   const [infoFrequency, setInfoFrequency] = useState(null);
@@ -211,8 +212,12 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
       setInfoFrequency(frequency);
-      pitchValueRef.current = frequencyToNote(frequency);
+      const pitchAndBaseFrequency = frequencyToNote(frequency)
+      pitchValueRef.current = pitchAndBaseFrequency.pitch;
+      baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequency;
       pitcNotesArray.push(pitchValueRef.current);
+      setBaseFrequency(pitchAndBaseFrequency.baseFrequency);
+     
      
      
       canvasCtx.fillStyle = `rgb(${barHeight + 30}, 50, 50)`;
@@ -244,23 +249,38 @@ This line of code will draw a filled rectangle on the canvas starting at coordin
 */
   
 
+const frequencyToNote = (infoFrequency) => {
+  if (infoFrequency === 0) {
+    return 'No sound';
+  }
+
+  const notes = [
+    'C',
+    'C#',
+    'D',
+    'D#',
+    'E',
+    'F',
+    'F#',
+    'G',
+    'G#',
+    'A',
+    'A#',
+    'B'
+  ];
+  const noteCountFromC0 = 12 * (Math.log2(infoFrequency / 16.351597831287414) + 1);
+  const noteIndex = Math.floor(noteCountFromC0 % 12);
+  const octave = Math.floor(noteCountFromC0 / 12);
+
+  const pitch = `${notes[noteIndex]}${octave}`;
+  const baseFrequency = 16.351597831287414 * (2 ** (octave + (noteIndex - 9) / 12));
+  console.log("pitch", pitch);
+   return { pitch, baseFrequency };
+ // return `${notes[noteIndex]}${octave}`;
+};
 
 
 
-
-
-
-  const frequencyToNote = (infoFrequency) => {
-    const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    const A4Frequency = 440;
-    const semitoneRatio = 2 ** (1 / 12);
-    const semitonesFromA4 = 12 * Math.log2(infoFrequency/ A4Frequency);
-    const noteIndex = Math.round(semitonesFromA4) % 12;
-    const octave = Math.floor((semitonesFromA4 + 9) / 12) + 4;
-    return `${noteNames[noteIndex]}${octave}`;
-  };
-
-  
 
   useEffect(() => {
     if (audioConstextRef.current) {
