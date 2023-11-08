@@ -208,7 +208,9 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
    
   };
 
-
+  const filterUniqueElements = (arr) => {
+    return [...new Set(arr)];
+}
   
 
   const draw = () => {
@@ -233,6 +235,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     console.log("barWidth", barWidth);
     let x = 0;
     let pitcNotesArray = [];
+    
 
     for (let i = 0; i < bufferLengthRef.current; i++) {
       console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
@@ -253,7 +256,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
       x += barWidth + 1;
     }
-    setPitchNotes(pitcNotesArray);
+    const pitcNotesArrayFiltered = filterUniqueElements(pitcNotesArray)
+    setPitchNotes(pitcNotesArrayFiltered);
     requestAnimationFrame(draw);
   };
 
