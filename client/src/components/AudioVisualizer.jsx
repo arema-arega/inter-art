@@ -20,6 +20,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
  
+ // console.log("audioLink", audioLink);
+
   const actulizedAudioRef = () => {
     audioRef.current = new Audio(audioLink);
     console.log("audioLink =", audioLink);
@@ -35,7 +37,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
      fastFourierValueRef.current = increase;
   
       console.log("fastFourierValueRef.current", fastFourierValueRef.current);
-    
+      createAnalyserAndDraw();
     }
   };
 
@@ -46,9 +48,29 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     //  setFastFourierValue(decrease);
       fastFourierValueRef.current = decrease;
       console.log("fastFourierValueRef.current", fastFourierValueRef.current);
+      createAnalyserAndDraw();
     }
   };
 
+
+  const createAnalyserAndDraw = () => {
+    
+      if (audioConstextRef.current && audioRef.current) {
+        if (sourceNodeRef.current) {
+          sourceNodeRef.current.disconnect();
+          analyserRef.current.disconnect();
+        }
+    
+        createAnalyser(); // Update the analyser with the new FFT size
+    
+        if (audioConstextRef.current.state === 'running') {
+          sourceNodeRef.current.connect(analyserRef.current);
+          analyserRef.current.connect(audioConstextRef.current.destination);
+        }
+    
+      draw();
+    }
+  };
 
   // ______________________CANVAS SIZE
   const handleCanvasIncrease = () => {
@@ -112,11 +134,14 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   }
 
   const createAnalyser = () => {
-    const analyser = audioConstextRef.current.createAnalyser();
-    analyser.fftSize = fastFourierValueRef.current;
-    analyserRef.current = analyser;
-    bufferLengthRef.current = analyser.frequencyBinCount;
-    dataArrayInfoRef.current = new Uint8Array(bufferLengthRef.current);
+ 
+    if (audioConstextRef.current) {
+      const analyser = audioConstextRef.current.createAnalyser();
+      analyser.fftSize = fastFourierValueRef.current;
+      analyserRef.current = analyser;
+      bufferLengthRef.current = analyser.frequencyBinCount;
+      dataArrayInfoRef.current = new Uint8Array(bufferLengthRef.current);
+    }
   };
 
   const handleIsPlaying = async () => {
@@ -183,6 +208,9 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
    
   };
 
+
+  
+
   const draw = () => {
   
   const canvas = canvasRef.current;
@@ -197,6 +225,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
       analyserRef.current.getByteFrequencyData(dataArray);
       dataArrayInfoRef.current = dataArray;
+      bufferLengthRef.current = dataArray.length;
     }
 
     console.log("bufferLengthRef.current" , bufferLengthRef.current);
@@ -213,10 +242,10 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
       setInfoFrequency(frequency);
       const pitchAndBaseFrequency = frequencyToNote(frequency)
-      pitchValueRef.current = pitchAndBaseFrequency.pitch;
-      baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequency;
+      pitchValueRef.current = pitchAndBaseFrequency.pitchWesternMusic;
+      baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequencyWesternMusic;
       pitcNotesArray.push(pitchValueRef.current);
-      setBaseFrequency(pitchAndBaseFrequency.baseFrequency);
+      setBaseFrequency(pitchAndBaseFrequency.baseFrequencyWesternMusic);
      
      
      
@@ -268,15 +297,19 @@ const frequencyToNote = (infoFrequency) => {
     'A#',
     'B'
   ];
+
+  // For Western Music:
   const noteCountFromC0 = 12 * (Math.log2(infoFrequency / 16.351597831287414) + 1);
   const noteIndex = Math.floor(noteCountFromC0 % 12);
   const octave = Math.floor(noteCountFromC0 / 12);
 
-  const pitch = `${notes[noteIndex]}${octave}`;
-  const baseFrequency = 16.351597831287414 * (2 ** (octave + (noteIndex - 9) / 12));
-  console.log("pitch", pitch);
-   return { pitch, baseFrequency };
- // return `${notes[noteIndex]}${octave}`;
+  const pitchWesternMusic = `${notes[noteIndex]}${octave}`;
+
+  const baseFrequencyWesternMusic = 16.351597831287414 * (2 ** (octave + (noteIndex - 9) / 12));
+ // const noteBaseFrequencyWesternMusic = 
+  console.log("pitchWesternMusic", pitchWesternMusic);
+  return { pitchWesternMusic , baseFrequencyWesternMusic };
+ 
 };
 
 
