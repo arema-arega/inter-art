@@ -21,6 +21,12 @@ index.html file
 /*
 background its the backing image of all the app
 */
+.App{
+  margin: 200rem;
+
+}
+
+
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
   align-items: center;
@@ -32,7 +38,7 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 2rem;
   border: 2px solid #ccc;
   border-radius: 10px;
@@ -109,7 +115,7 @@ input {
 
   .audio_visualizer_canvas{
     padding: 1rem;
-    margin:4rem ;
+    margin: 2rem ;
     flex-direction: column;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -117,10 +123,21 @@ input {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
   }
 
+  .general_audio_visualizer_controlers{
+    padding: 1rem;
+    flex-direction: row;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-image: linear-gradient(to top right, #0d0000d7, #0015ffcb,); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    size:15rem ; 
+
+  }
+
 
   .audio_visualizer_controlers{
    padding: 1rem;
-    flex-direction: column;
+    flex-direction: row;
     border: 2px solid #ccc;
     border-radius: 10px;
     background-image: linear-gradient(to top right, #0015ff, #00ff11); 

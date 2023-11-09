@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import { nonWesternScales, notes } from './MusicScales';
+import { NonWesternScaleCreator } from './MusicalScaleCreator';
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
 
 
@@ -24,59 +25,14 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
  const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
-  const [selectedNonWesternScale, setSelectedNonWesternScale] = useState(null);
-  const [selectedWestern, setSelectedWestern] = useState(null);
-  const [showWesternScale, setShowWesternScale] = useState(false);
+  
   const [scaleArrayWestern ,setScaleArrayWestern] = useState([])
  // console.log("audioLink", audioLink);
 
- const notes = [
-  'C',
-  'C#',
-  'D',
-  'D#',
-  'E',
-  'F',
-  'F#',
-  'G',
-  'G#',
-  'A',
-  'A#',
-  'B'
-]; 
-  
+ 
  
   
-const nonWesternScales = {
-  "Indian (Hindustani) Raag Bilawal": [0, 1, 2, 3, 4, 5, 6],
-  "Indian (Hindustani) Raag Bhairav": [0, 1, -1, 3, 4, -1, -2],
-  "Indian (Hindustani) Raag Kafi": [0, -1, 2, 3, 4, -1, 6],
-  "Indian (Hindustani) Raag Bhairavi": [0, -1, -2, 3, 4, -1, -2],
-  "Indian (Carnatic) Mayamalavagowla": [0, 1, -1, 3, 4, 5, 6],
-  "Indian (Carnatic) Shankarabharanam": [0, 1, 2, 3, 4, 5, 6],
-  "Indian (Carnatic) Kharaharapriya": [0, 1, 2, 3.5, 4, 5, 6],
-  "Indian (Carnatic) Keeravani": [0, -1, 2, 4, -1, 6],
-  "Arabic Maqam Rast": [0, 1, -1, 3, 4, 5, 6],
-  "Arabic Maqam Bayati": [0, -1, 2, 3, 4, -1, 6],
-  "Arabic Maqam Hijaz": [0, -1, 2, 3, 4, -1, 6],
-  "Arabic Maqam Hijaz Kar": [0, -1, 2, 3, 4, -1, 6],
-  "Arabic Maqam Kurd": [0, -1, 3, 4, -1, 6],
-  "Persian Dastgah Shur": [0, 1, -1, 3, 4, -1, 6],
-  "Persian Dastgah Mahur": [0, 1, -1, 3, 4, 5, 6],
-  "Persian Dastgah Chahargah": [0, -1, 2, 3, 4, -1, 6],
-  "Persian Dastgah Homayun": [0, 1, 2, 3, 4, -1, 6],
-  "Chinese (Pentatonic) Gong Mode": [0, 1, 2, 4, 5],
-  "Chinese (Pentatonic) Shang Mode": [0, 1, 3, 4, 5],
-  "Chinese (Pentatonic) Jue Mode": [0, 2, 3, 5, 6],
-  "Japanese (Ritsu Scale)": [0, 1, 3, 4, 5],
-  "Japanese (Ryo Scale)": [0, 1, -1, 4, 5],
-  "Japanese (Ritsu Scale, Honchoshi)": [0, 1, 2, 4, 5],
-  "Japanese (Ritsu Scale, Iwato)": [0, -1, 3, 4, -2],
-  "Indonesian (Pelog Scale)": [0, -1, 2, 4, -1],
-  "Indonesian (Slendro Scale)": [0, 1, -1, 4, -2]
-  };
-  
-  
+
   
   const actulizedAudioRef = () => {
     audioRef.current = new Audio(audioLink);
@@ -287,7 +243,7 @@ const nonWesternScales = {
     }
 
     console.log("bufferLengthRef.current" , bufferLengthRef.current);
-    const barWidth = (canvasWidth / bufferLengthRef.current) * 2.5;
+    const barWidth = (canvasWidth / bufferLengthRef.current) * 0.5;
     console.log("barWidth", barWidth);
     let x = 0;
     let pitchNotesArray = [];
@@ -295,7 +251,7 @@ const nonWesternScales = {
 
     for (let i = 0; i < bufferLengthRef.current; i++) {
       console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
-      const barHeight = dataArrayInfoRef.current[i];
+      const barHeight = dataArrayInfoRef.current[i] !== 0 ? dataArrayInfoRef.current[i] + 200 : 0 ;
       console.log("barHeight", barHeight);
       const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
@@ -306,11 +262,9 @@ const nonWesternScales = {
       pitchNotesArray.push(pitchValueRef.current);
       setBaseFrequency(pitchAndBaseFrequency.baseFrequencyWesternMusic);
      
-     
-     
-      canvasCtx.fillStyle = `rgb(${barHeight + 30}, 50, 50)`;
+      canvasCtx.fillStyle = `rgb(${barHeight + 60}, 50, 50)`;
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
-      x += barWidth + 1;
+      x += barWidth + 2;
     }
     const pitchNotesArrayFiltered = filterUniqueElements(pitchNotesArray)
     setPitchNotes(pitchNotesArrayFiltered);
@@ -364,108 +318,13 @@ const frequencyToNote = (infoFrequency) => {
 };
 
 
-  
 
-// WESTERN SCALES __________________
-
-
-const onSelectedNonWesternScale = (event) =>{
-  const selected = event.target.value;
-
-  const selectedScaleArray = nonWesternScales[selected];
-  console.log(" selectedScaleArray", selectedScaleArray);
-  nonWesternScaleCreator(selectedScaleArray);
-  
-  console.log(" USER selected Scale", selected);
-  const firstSpaceIndex = selected.indexOf(" "); // Find the index of the first space
-
-  const result = firstSpaceIndex !== -1 ? selected.substring(0, firstSpaceIndex) : selected;
-  console.log(result);
-
-
-  setSelectedWestern(result);
-}
-
-
-
-
-
-
-  function circularPermutation(arr, start) {
-    
-  const index = arr.indexOf(start);
-
-
-  if (index === -1) {
-      return "Starting point not found in the array.";
-  }
-
-
-  const newArr = arr.slice(index).concat(arr.slice(0, index));
-  return newArr;
-}
-
-/* notePlacer FUNTION is used to know if the Note is in the same register of the Tonic Note 
-or in one register below.
- EXAMPLE:
-"Arabic Maqam Hijaz Kar": [0, -1, 2, 3, 4, -1, 6],
-
-Using C4 as the 0 interval
-[0, -1, 2, 3, 4, -1, 6]  = [C4, B3, C#4, D4, D#4, B3, F4]
-
-
-*/
-const notePlacer = (arr, index) =>{
-const length = arr.length;
-let nota = null;
-if (index < 0){ 
-nota = arr[length + index]
-};
-if (index >= 0){ 
-nota = arr[index]
-};
-
-
-return nota  
-}
-
-  const nonWesternScaleCreator = (selected) => {
-    console.log("selected", selected);
-    let start = 0
-   
-    if (scaleArrayWestern) {
-      console.log("scaleArrayWestern", scaleArrayWestern);
-      start = scaleArrayWestern[0];
-         
-    }
-     
-    start = notes[0]; // C 
-    
-    
-    
-    let orgaizedNotes = circularPermutation(notes, start);
-    console.log("orgaizedNotes", orgaizedNotes);
-    let nonWesternScale = [];
-    for (let i = 0; i < selected.length; i++) {
-      console.log("Organized Notes", orgaizedNotes[i]);
-      let note = notePlacer(orgaizedNotes, selected[i]);
-      let noteMusicalRegister = selected[i] > 0 ? 4 : 3;
-      nonWesternScale.push(`${note} ${noteMusicalRegister}`);
-      
-    }
-
-    setSelectedNonWesternScale(nonWesternScale);
-      console.log("nonWesternScale", nonWesternScale);
-  }
-  
-  
-  const onShowWesternScale = () => {
-    setShowWesternScale(true);
-  }
   
   
   
   
+
+
 
 
   useEffect(() => {
@@ -479,6 +338,8 @@ return nota
 
   return (
     <div>
+<div className="general_audio_visualizer_controlers">
+<div className="audio_visualizer_controlers">
       <div className="audio_visualizer_controlers">
         <label className="play_stop">
           <button className="button_play" onClick={handlePlay}>
@@ -494,7 +355,28 @@ return nota
         <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />
       </div>
 
+      </div> 
+
+
+
+
       <div className="audio_visualizer_controlers">
+        
+
+      <label className="frequency">
+          Set Frequency
+          <button className="button_increase" onClick={handleFastIncrease}>
+            +
+          </button>
+          <button className="button_decrease" onClick={handleFastDecrease}>
+            -
+          </button>
+          
+          <h2>{(fastFourierValueRef.current)}</h2>
+         
+        </label>
+
+
         <label className="canvas_info">
           Canvas Size
           <button className="button_increase" onClick={handleCanvasIncrease}>
@@ -511,19 +393,21 @@ return nota
           </p>
         </label>
 
-        <label className="frequency">
-          Set Frequency
-          <button className="button_increase" onClick={handleFastIncrease}>
-            +
-          </button>
-          <button className="button_decrease" onClick={handleFastDecrease}>
-            -
-          </button>
-          
-          <h2>{(fastFourierValueRef.current)}</h2>
-         
-        </label>
+        </div>
+
+
+
+
+
+        
        
+        
+
+
+
+
+
+
       </div>
 
       <div >
@@ -542,32 +426,10 @@ return nota
       </div>
 
       <div>
-<div className="Chord">
-    <label>NON WESTERN MUSIC SCALE SELECTOR</label>
-    <select className="select_Chord" onChange={onSelectedNonWesternScale}>
-        <option value="Indian (Hindustani) Raag Bilawal">Select</option>
-        {Object.keys(nonWesternScales).map((westernScale) => (
-            <option key={westernScale} value={westernScale}>
-             
-                        {westernScale}
-                 
-            </option>
-        ))}
-    </select>
-    {selectedWestern && (
-        <button className="button_chords" onClick={onShowWesternScale}>{selectedWestern}</button> 
-          )}
-          
-          {showWesternScale && (
-            <label > {selectedNonWesternScale.join(', ')} </label>
-          )
-          
-          
-          }
-</div>
+
 </div> 
 
-
+      <NonWesternScaleCreator scaleArrayWestern={scaleArrayWestern} />
 
 
     </div>
