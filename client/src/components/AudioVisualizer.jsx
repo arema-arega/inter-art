@@ -27,6 +27,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const [selectedNonWesternScale, setSelectedNonWesternScale] = useState(null);
   const [selectedWestern, setSelectedWestern] = useState(null);
   const [showWesternScale, setShowWesternScale] = useState(false);
+  const [scaleArrayWestern ,setScaleArrayWestern] = useState([])
  // console.log("audioLink", audioLink);
 
  const notes = [
@@ -350,11 +351,15 @@ const frequencyToNote = (infoFrequency) => {
   const octave = Math.floor(noteCountFromC0 / 12);
 
   const pitchWesternMusic = `${notes[noteIndex]}${octave}`;
+  const notesAndIndex = `${notes[noteIndex]}`;
+  const scaleArray = []
+  scaleArray.push(scaleArray.filter((x) =>  x !== notesAndIndex));
+  setScaleArrayWestern(scaleArray);
 
   const baseFrequencyWesternMusic = 16.351597831287414 * (2 ** (octave + (noteIndex - 9) / 12));
  // const noteBaseFrequencyWesternMusic = 
   console.log("pitchWesternMusic", pitchWesternMusic);
-  return { pitchWesternMusic , baseFrequencyWesternMusic };
+  return { pitchWesternMusic , baseFrequencyWesternMusic, scaleArray };
  
 };
 
@@ -386,7 +391,8 @@ const onSelectedNonWesternScale = (event) =>{
 
 
 
-function circularPermutation(arr, start) {
+  function circularPermutation(arr, start) {
+    
   const index = arr.indexOf(start);
 
 
@@ -399,7 +405,16 @@ function circularPermutation(arr, start) {
   return newArr;
 }
 
+/* notePlacer FUNTION is used to know if the Note is in the same register of the Tonic Note 
+or in one register below.
+ EXAMPLE:
+"Arabic Maqam Hijaz Kar": [0, -1, 2, 3, 4, -1, 6],
 
+Using C4 as the 0 interval
+[0, -1, 2, 3, 4, -1, 6]  = [C4, B3, C#4, D4, D#4, B3, F4]
+
+
+*/
 const notePlacer = (arr, index) =>{
 const length = arr.length;
 let nota = null;
@@ -416,19 +431,25 @@ return nota
 
   const nonWesternScaleCreator = (selected) => {
     console.log("selected", selected);
-  
-    if (pitchValueRef.current) {
-      let start = notes.find((n) => n === pitchValueRef.current)
+    let start = 0
+   
+    if (scaleArrayWestern) {
+      console.log("scaleArrayWestern", scaleArrayWestern);
+      start = scaleArrayWestern[0];
+         
     }
-    let start = notes[0]; // C
+     
+    start = notes[0]; // C 
+    
+    
     
     let orgaizedNotes = circularPermutation(notes, start);
     console.log("orgaizedNotes", orgaizedNotes);
     let nonWesternScale = [];
     for (let i = 0; i < selected.length; i++) {
       console.log("Organized Notes", orgaizedNotes[i]);
-      let note = notePlacer(orgaizedNotes, i);
-      let noteMusicalRegister = selected[i] > 1 ? 4 : 3;
+      let note = notePlacer(orgaizedNotes, selected[i]);
+      let noteMusicalRegister = selected[i] > 0 ? 4 : 3;
       nonWesternScale.push(`${note} ${noteMusicalRegister}`);
       
     }
@@ -522,7 +543,7 @@ return nota
 
       <div>
 <div className="Chord">
-    <label>SELECT WESTERN MUSIC SCALE:</label>
+    <label>NON WESTERN MUSIC SCALE SELECTOR</label>
     <select className="select_Chord" onChange={onSelectedNonWesternScale}>
         <option value="Indian (Hindustani) Raag Bilawal">Select</option>
         {Object.keys(nonWesternScales).map((westernScale) => (
