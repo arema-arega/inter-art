@@ -29,7 +29,7 @@ background its the backing image of all the app
 
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
-  
+  padding: 10rem;
   
 }
 
