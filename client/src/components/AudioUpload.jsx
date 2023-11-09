@@ -76,12 +76,15 @@ const AudioUpload = ({ onFileUpload }) => {
             placeholder="Choose an MP3 file"
           />
           <p className="message_to_user">UPLOAD AN MP3 FILE</p>
+          {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}
           <Button className="button_upload" type="submit">
             Upload
           </Button>
         </label>
+       
       </form>
-        {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}
+    
+       
         
     </div>
   );

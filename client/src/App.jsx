@@ -55,12 +55,16 @@ function App() {
     <div className="background">
       <NextUIProvider>
         <div className="App">
-         
-            <Logo screenSize={currentScreenSize} />
-         
+
+           <div>
+            <ScreenSize onScreenSizeChange={handleScreenSizeChange} />
+          </div>
 
           
-            <header className="app__header">
+          <header className="app__header">
+
+            <Logo screenSize={currentScreenWidth} />
+            
               <div className="app__header-container">
                 <Link className="app__header-link" to="/audio-upload">
                   AUDIO UPLOAD
@@ -79,6 +83,10 @@ function App() {
             </header>
         
 
+          
+
+
+ <div>
           <main className="app__main">
             <Routes>
               
@@ -96,9 +104,14 @@ function App() {
             </Routes>
           </main>
 
-          <div>
-            <ScreenSize onScreenSizeChange={handleScreenSizeChange} />
           </div>
+
+
+
+
+          
+
+
         </div>
       </NextUIProvider>
     </div>

@@ -118,6 +118,7 @@ const onSelectedNonWesternScale = (event) =>{
         <div className="select_Chord">
             <label>SCALE SELECTORS</label>
         </div>
+
         <div>
         <div className="Chord">
 <label>NON WESTERN MUSIC </label>
@@ -130,7 +131,10 @@ const onSelectedNonWesternScale = (event) =>{
              
         </option>
     ))}
-</select>
+                </select>
+                
+
+  <div className="select_Chord">            
 {selectedWestern && (
     <button className="button_chords" onClick={onShowWesternScale}>{selectedWestern}</button> 
       )}
@@ -140,7 +144,9 @@ const onSelectedNonWesternScale = (event) =>{
       )
       
       
-      }
+                    }
+                    
+                    </div>  
             </div>
         </div>
         

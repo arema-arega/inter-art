@@ -32,9 +32,13 @@ import { Image } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 
-const Logo = ({ currentScreenSize }) => {
-  const percentage = Math.min(currentScreenSize / 600, 10);
- // const percentage = 60;
+const Logo = ( currentScreenWidth) => {
+  
+  console.log("currentScreenSize", currentScreenWidth.screenSize);
+  const percentage = (currentScreenWidth.screenSize / 12);
+  
+  console.log("percentage", percentage);
+
   const navigate = useNavigate(); // Initialize the navigation function
 
   // Handle the click event
@@ -49,11 +53,10 @@ const Logo = ({ currentScreenSize }) => {
         src="/logoInterArt.svg"
         alt="Logo"
         isZoomed
-        sizes={`(max-width: ${currentScreenSize}px) 10vw, 5vw`}
         width={percentage + '%'}
-        height={percentage + '%'}
-        radius="full"
+        height={(percentage * 1.2) + '%'}
         shadow="lg"
+        radius="full"
         onPointerDown={handleLogoClick} // Use the custom click handler
         layout="responsive"
     />

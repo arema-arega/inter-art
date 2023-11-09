@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { nonWesternScales, notes } from './MusicScales';
 import { NonWesternScaleCreator } from './MusicalScaleCreator';
+
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
 
 
@@ -338,6 +339,8 @@ const frequencyToNote = (infoFrequency) => {
 
   return (
     <div>
+
+      <div>
 <div className="general_audio_visualizer_controlers">
 <div className="audio_visualizer_controlers">
       <div className="audio_visualizer_controlers">
@@ -395,7 +398,7 @@ const frequencyToNote = (infoFrequency) => {
 
         </div>
 
-
+        </div>
 
 
 
