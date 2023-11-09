@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
+
+
+
+
+
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
   const audioConstextRef = useRef(null);
@@ -19,9 +24,59 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
  const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
- 
+  const [selectedNonWesternScale, setSelectedNonWesternScale] = useState(null);
+  const [selectedWestern, setSelectedWestern] = useState(null);
+  const [showWesternScale, setShowWesternScale] = useState(false);
  // console.log("audioLink", audioLink);
 
+ const notes = [
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B'
+]; 
+  
+ 
+  
+const nonWesternScales = {
+  "Indian (Hindustani) Raag Bilawal": [0, 1, 2, 3, 4, 5, 6],
+  "Indian (Hindustani) Raag Bhairav": [0, 1, -1, 3, 4, -1, -2],
+  "Indian (Hindustani) Raag Kafi": [0, -1, 2, 3, 4, -1, 6],
+  "Indian (Hindustani) Raag Bhairavi": [0, -1, -2, 3, 4, -1, -2],
+  "Indian (Carnatic) Mayamalavagowla": [0, 1, -1, 3, 4, 5, 6],
+  "Indian (Carnatic) Shankarabharanam": [0, 1, 2, 3, 4, 5, 6],
+  "Indian (Carnatic) Kharaharapriya": [0, 1, 2, 3.5, 4, 5, 6],
+  "Indian (Carnatic) Keeravani": [0, -1, 2, 4, -1, 6],
+  "Arabic Maqam Rast": [0, 1, -1, 3, 4, 5, 6],
+  "Arabic Maqam Bayati": [0, -1, 2, 3, 4, -1, 6],
+  "Arabic Maqam Hijaz": [0, -1, 2, 3, 4, -1, 6],
+  "Arabic Maqam Hijaz Kar": [0, -1, 2, 3, 4, -1, 6],
+  "Arabic Maqam Kurd": [0, -1, 3, 4, -1, 6],
+  "Persian Dastgah Shur": [0, 1, -1, 3, 4, -1, 6],
+  "Persian Dastgah Mahur": [0, 1, -1, 3, 4, 5, 6],
+  "Persian Dastgah Chahargah": [0, -1, 2, 3, 4, -1, 6],
+  "Persian Dastgah Homayun": [0, 1, 2, 3, 4, -1, 6],
+  "Chinese (Pentatonic) Gong Mode": [0, 1, 2, 4, 5],
+  "Chinese (Pentatonic) Shang Mode": [0, 1, 3, 4, 5],
+  "Chinese (Pentatonic) Jue Mode": [0, 2, 3, 5, 6],
+  "Japanese (Ritsu Scale)": [0, 1, 3, 4, 5],
+  "Japanese (Ryo Scale)": [0, 1, -1, 4, 5],
+  "Japanese (Ritsu Scale, Honchoshi)": [0, 1, 2, 4, 5],
+  "Japanese (Ritsu Scale, Iwato)": [0, -1, 3, 4, -2],
+  "Indonesian (Pelog Scale)": [0, -1, 2, 4, -1],
+  "Indonesian (Slendro Scale)": [0, 1, -1, 4, -2]
+  };
+  
+  
+  
   const actulizedAudioRef = () => {
     audioRef.current = new Audio(audioLink);
     console.log("audioLink =", audioLink);
@@ -234,7 +289,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     const barWidth = (canvasWidth / bufferLengthRef.current) * 2.5;
     console.log("barWidth", barWidth);
     let x = 0;
-    let pitcNotesArray = [];
+    let pitchNotesArray = [];
     
 
     for (let i = 0; i < bufferLengthRef.current; i++) {
@@ -247,7 +302,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       const pitchAndBaseFrequency = frequencyToNote(frequency)
       pitchValueRef.current = pitchAndBaseFrequency.pitchWesternMusic;
       baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequencyWesternMusic;
-      pitcNotesArray.push(pitchValueRef.current);
+      pitchNotesArray.push(pitchValueRef.current);
       setBaseFrequency(pitchAndBaseFrequency.baseFrequencyWesternMusic);
      
      
@@ -256,8 +311,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
       x += barWidth + 1;
     }
-    const pitcNotesArrayFiltered = filterUniqueElements(pitcNotesArray)
-    setPitchNotes(pitcNotesArrayFiltered);
+    const pitchNotesArrayFiltered = filterUniqueElements(pitchNotesArray)
+    setPitchNotes(pitchNotesArrayFiltered);
     requestAnimationFrame(draw);
   };
 
@@ -287,20 +342,7 @@ const frequencyToNote = (infoFrequency) => {
     return 'No sound';
   }
 
-  const notes = [
-    'C',
-    'C#',
-    'D',
-    'D#',
-    'E',
-    'F',
-    'F#',
-    'G',
-    'G#',
-    'A',
-    'A#',
-    'B'
-  ];
+  
 
   // For Western Music:
   const noteCountFromC0 = 12 * (Math.log2(infoFrequency / 16.351597831287414) + 1);
@@ -317,6 +359,92 @@ const frequencyToNote = (infoFrequency) => {
 };
 
 
+  
+
+// WESTERN SCALES __________________
+
+
+const onSelectedNonWesternScale = (event) =>{
+  const selected = event.target.value;
+
+  const selectedScaleArray = nonWesternScales[selected];
+  console.log(" selectedScaleArray", selectedScaleArray);
+  nonWesternScaleCreator(selectedScaleArray);
+  
+  console.log(" USER selected Scale", selected);
+  const firstSpaceIndex = selected.indexOf(" "); // Find the index of the first space
+
+  const result = firstSpaceIndex !== -1 ? selected.substring(0, firstSpaceIndex) : selected;
+  console.log(result);
+
+
+  setSelectedWestern(result);
+}
+
+
+
+
+
+
+function circularPermutation(arr, start) {
+  const index = arr.indexOf(start);
+
+
+  if (index === -1) {
+      return "Starting point not found in the array.";
+  }
+
+
+  const newArr = arr.slice(index).concat(arr.slice(0, index));
+  return newArr;
+}
+
+
+const notePlacer = (arr, index) =>{
+const length = arr.length;
+let nota = null;
+if (index < 0){ 
+nota = arr[length + index]
+};
+if (index >= 0){ 
+nota = arr[index]
+};
+
+
+return nota  
+}
+
+  const nonWesternScaleCreator = (selected) => {
+    console.log("selected", selected);
+  
+    if (pitchValueRef.current) {
+      let start = notes.find((n) => n === pitchValueRef.current)
+    }
+    let start = notes[0]; // C
+    
+    let orgaizedNotes = circularPermutation(notes, start);
+    console.log("orgaizedNotes", orgaizedNotes);
+    let nonWesternScale = [];
+    for (let i = 0; i < selected.length; i++) {
+      console.log("Organized Notes", orgaizedNotes[i]);
+      let note = notePlacer(orgaizedNotes, i);
+      let noteMusicalRegister = selected[i] > 1 ? 4 : 3;
+      nonWesternScale.push(`${note} ${noteMusicalRegister}`);
+      
+    }
+
+    setSelectedNonWesternScale(nonWesternScale);
+      console.log("nonWesternScale", nonWesternScale);
+  }
+  
+  
+  const onShowWesternScale = () => {
+    setShowWesternScale(true);
+  }
+  
+  
+  
+  
 
 
   useEffect(() => {
@@ -391,6 +519,36 @@ const frequencyToNote = (infoFrequency) => {
           ''
         )}
       </div>
+
+      <div>
+<div className="Chord">
+    <label>SELECT WESTERN MUSIC SCALE:</label>
+    <select className="select_Chord" onChange={onSelectedNonWesternScale}>
+        <option value="Indian (Hindustani) Raag Bilawal">Select</option>
+        {Object.keys(nonWesternScales).map((westernScale) => (
+            <option key={westernScale} value={westernScale}>
+             
+                        {westernScale}
+                 
+            </option>
+        ))}
+    </select>
+    {selectedWestern && (
+        <button className="button_chords" onClick={onShowWesternScale}>{selectedWestern}</button> 
+          )}
+          
+          {showWesternScale && (
+            <label > {selectedNonWesternScale.join(', ')} </label>
+          )
+          
+          
+          }
+</div>
+</div> 
+
+
+
+
     </div>
   );
 };
