@@ -114,7 +114,7 @@ const SongList = (props) => {
 
     return (
         <div className="list">
-            <h2>Song List</h2>
+            <h1>Song List</h1>
             {error && <p>Error: {error}</p>}
             {songs.length > 0 ? (
                 <ul>
@@ -126,7 +126,7 @@ const SongList = (props) => {
                     ))}
                 </ul>
             ) :(
-                <p>No songs available</p>
+                <h3>No songs available</h3>
             )}
            
             

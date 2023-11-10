@@ -252,7 +252,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
 
     for (let i = 0; i < bufferLengthRef.current; i++) {
       console.log("dataArrayInfoRef.current", dataArrayInfoRef.current);
-      const barHeight = dataArrayInfoRef.current[i] !== 0 ? dataArrayInfoRef.current[i] + 200 : 0 ;
+      //const barHeight = dataArrayInfoRef.current[i] !== 0 ?  dataArrayInfoRef.current[i] + 200  : 0 ;
+      const barHeight = dataArrayInfoRef.current[i];
       console.log("barHeight", barHeight);
       const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
