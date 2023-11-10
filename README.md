@@ -41,8 +41,8 @@ https://youtu.be/5Nw31b64smo
 
 ![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/25%20-%20Analysis%20working.png?raw=true)
 
-## Clonning INTERART
-For those clonning this repository:
+## Cloning INTERART
+For those cloning this repository:
 
 - LICENSE : https://github.com/arema-arega/inter-art/blob/main/LICENSE
 
