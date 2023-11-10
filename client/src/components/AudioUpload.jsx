@@ -71,12 +71,12 @@ const AudioUpload = ({ onFileUpload }) => {
         <label className="upload-label">
           <input
             type="file"
-            accept=".mp3"
+            accept=".mp3, .wav, .m4a, .flac"
             onChange={handleFileChange}
             placeholder="Choose an MP3 file"
           />
-          <p className="message_to_user">UPLOAD AN MP3 FILE</p>
-          {error ? <p className="error"> "Invalid format. Please upload an MP3 file" </p> : ""}
+          <p className="message_to_user">UPLOAD AN MP3, WAV, M4A OR FLAC FILE</p>
+          {error ? <p className="error"> "Invalid format. Please upload an MP3, WAV, M4A OR FLAC file" </p> : ""}
           <Button className="button_upload" type="submit">
             Upload
           </Button>

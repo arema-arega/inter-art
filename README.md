@@ -28,9 +28,23 @@ https://youtu.be/5Nw31b64smo
 - Visualize the selected chords and a guitar chart (the selected chord should appear on the guitar chart example)
 
 ##### Future phases:
+- Right Now I'm still working on the Develoment & Implementation of new features, like some of the mentioned below, but I haven't updated the information of the new Components or feat on this Readme.
 - Integrating sound visualization components for interactive uses
 - Adding an integration with Images manipulation
 - user login
+
+## Clonning INTERART
+For those clonning this repository:
+
+- LICENSE : https://github.com/arema-arega/inter-art/blob/main/LICENSE
+
+- Please include Copyright (c) 2023 Arema Arega
+
+- And if you have any feedback please leave a comment. 
+
+Thank you.
+
+
 
 
 
@@ -68,34 +82,34 @@ https://www.geeksforgeeks.org/deployment-of-react-application-using-github-pages
 1 - Set the Repository Public
 
 2 - Install GitHub Pages
-´´´´
+```
 npm install gh-pages --save-dev
 
-´´´´
+```
 
 And React-Scripts 
 https://www.npmjs.com/package/react-scripts
 
-´´´´
+```
 npm i react-scripts
-´´´´
+```
 
 
 3 - Add to package.json file
 
 Example:
-´´´´
+```
 "homepage": "https://<Username>.github.io/<Repository-name>"
-´´´´
+```
 
 For my Project:
-´´´´
+```
 "homepage": "https://arema-arega.github.io/inter-art/"
-´´´´
+```
 
 4 - Then we will add “deploy” and “predeploy “properties in the scrip
 
-´´´´
+```
 "scripts":{
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build", 
@@ -104,21 +118,21 @@ For my Project:
     "eject": "react-scripts eject"
 }
 
-´´´´
+```
 
 5 - Commit
 
-´´´´
+```
 git add .
 git commit -m "commit"
 git push
-´´´´
+```
 
 6 - Deploy
 
-´´´´
+```
 npm run deploy
-´´´´
+```
 
 
 ![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/14-menu.png?raw=true)
