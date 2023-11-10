@@ -27,11 +27,19 @@ https://youtu.be/5Nw31b64smo
 - Show a list of the audio uploads kept inside the database and the current audio.
 - Visualize the selected chords and a guitar chart (the selected chord should appear on the guitar chart example)
 
+
+
+
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/24%20-%20Non%20WEstern%20Music%20Scales.png?raw=true)
+
 ##### Future phases:
 - Right Now I'm still working on the Develoment & Implementation of new features, like some of the mentioned below, but I haven't updated the information of the new Components or feat on this Readme.
 - Integrating sound visualization components for interactive uses
 - Adding an integration with Images manipulation
 - user login
+
+
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/25%20-%20Analysis%20working.png?raw=true)
 
 ## Clonning INTERART
 For those clonning this repository:
