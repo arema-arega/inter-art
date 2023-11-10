@@ -54,7 +54,7 @@ Thank you.
 
 
 
-
+![Local Image](https://github.com/arema-arega/inter-art/blob/main/client/public/images%20of%20the%20process/27%20-%20Git%20Cone%20Stats%20Nov%202023.png?raw=true)
 
 ## Workstation
 - Visual Studio Code editor https://code.visualstudio.com/
