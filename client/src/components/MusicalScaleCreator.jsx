@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { nonWesternScales, notes } from './MusicScales';
+import { frequencyToNoteCalculator } from './FrequencyToNoteCalculator';
 
 
 

@@ -51,7 +51,7 @@ export const InfoListPage = ({ info }) => {
   return (
     <div className="info_container">
       <div className="list">
-      {info !== null ? <SongList info={info} /> : <> </>}
+      {info !== null ? <SongList info={info} /> : <SongList info={info} />}
 
       </div>
       <div>

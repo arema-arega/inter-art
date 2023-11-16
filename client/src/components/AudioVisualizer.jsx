@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { nonWesternScales, notes } from './MusicScales';
 import { NonWesternScaleCreator } from './MusicalScaleCreator';
+import { frequencyToNoteCalculator } from './FrequencyToNoteCalculator';
+import Intervals from './IntervalsComponents';
 
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
 
@@ -26,8 +27,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
  const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
+  const [scaleArrayWestern, setScaleArrayWestern] = useState([])
   
-  const [scaleArrayWestern ,setScaleArrayWestern] = useState([])
  // console.log("audioLink", audioLink);
 
  
@@ -258,11 +259,12 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
       setInfoFrequency(frequency);
-      const pitchAndBaseFrequency = frequencyToNote(frequency)
+      const pitchAndBaseFrequency = frequencyToNoteCalculator(frequency)
       pitchValueRef.current = pitchAndBaseFrequency.pitchWesternMusic;
       baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequencyWesternMusic;
       pitchNotesArray.push(pitchValueRef.current);
       setBaseFrequency(pitchAndBaseFrequency.baseFrequencyWesternMusic);
+      setScaleArrayWestern(pitchAndBaseFrequency.scaleArray)
      
       canvasCtx.fillStyle = `rgb(${barHeight + 60}, 50, 50)`;
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
@@ -293,31 +295,6 @@ This line of code will draw a filled rectangle on the canvas starting at coordin
 
 */
   
-
-const frequencyToNote = (infoFrequency) => {
-  if (infoFrequency === 0) {
-    return 'No sound';
-  }
-
-  
-
-  // For Western Music:
-  const noteCountFromC0 = 12 * (Math.log2(infoFrequency / 16.351597831287414) + 1);
-  const noteIndex = Math.floor(noteCountFromC0 % 12);
-  const octave = Math.floor(noteCountFromC0 / 12);
-
-  const pitchWesternMusic = `${notes[noteIndex]}${octave}`;
-  const notesAndIndex = `${notes[noteIndex]}`;
-  const scaleArray = []
-  scaleArray.push(scaleArray.filter((x) =>  x !== notesAndIndex));
-  setScaleArrayWestern(scaleArray);
-
-  const baseFrequencyWesternMusic = 16.351597831287414 * (2 ** (octave + (noteIndex - 9) / 12));
- // const noteBaseFrequencyWesternMusic = 
-  console.log("pitchWesternMusic", pitchWesternMusic);
-  return { pitchWesternMusic , baseFrequencyWesternMusic, scaleArray };
- 
-};
 
 
 
@@ -434,6 +411,8 @@ const frequencyToNote = (infoFrequency) => {
 </div> 
 
       <NonWesternScaleCreator scaleArrayWestern={scaleArrayWestern} />
+
+      <Intervals/>
 
 
     </div>
