@@ -1,3 +1,7 @@
+
+//Non Western Music Rate 1.05349739638   // semitone = 1.05349739638 aprox)  22nd root of 2
+
+
 export const nonWesternScales = {
     "Indian (Hindustani) Raag Bilawal": [0, 1, 2, 3, 4, 5, 6],
     "Indian (Hindustani) Raag Bhairav": [0, 1, -1, 3, 4, -1, -2],
@@ -28,6 +32,8 @@ export const nonWesternScales = {
     "Indonesian (Slendro Scale)": [0, 1, -1, 4, -2]
 };
     
+// Western Music Rate 1.05946309436   // semitone = 1.05946309436)  twelfth root of 2
+
 
 export const WesternMusicScales = {
   "Major Scale": [0, 2, 4, 5, 7, 9, 11],
