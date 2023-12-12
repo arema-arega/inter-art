@@ -1,21 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { nonWesternScales, notes } from './MusicScales';
+import { nonWesternScales, WesternMusicScales, notes } from './MusicScales';
 import { frequencyToNoteCalculator } from './FrequencyToNoteCalculator';
 
 
 
-
+// NON WESTERN SCALE CREATOR
   
 export const  NonWesternScaleCreator = (scaleArrayWestern) => {
 
 const [selectedNonWesternScale, setSelectedNonWesternScale] = useState(null);
-const [selectedWestern, setSelectedWestern] = useState(null);
-const [showWesternScale, setShowWesternScale] = useState(false);
+const [selectedNonWestern, setSelectedNonWestern] = useState(null);
+const [showNonWesternScale, setShowNonWesternScale] = useState(false);
 
 
 const theNoteref = useRef("C");
 
-// Non WESTERN SCALES __________________
 
 
 const onSelectedNonWesternScale = (event) =>{
@@ -32,7 +31,7 @@ const onSelectedNonWesternScale = (event) =>{
     console.log(result);
   
   
-    setSelectedWestern(result);
+    setSelectedNonWestern(result);
   }
   
   
@@ -124,8 +123,8 @@ const onSelectedNonWesternScale = (event) =>{
     }
     
     
-    const onShowWesternScale = () => {
-      setShowWesternScale(true);
+    const onShowNonWesternScale = () => {
+      setShowNonWesternScale(true);
     }
     
     
@@ -164,10 +163,10 @@ const onSelectedNonWesternScale = (event) =>{
 <label>NON WESTERN MUSIC </label>
 <select className="select_Chord" onChange={onSelectedNonWesternScale}>
     <option value="Indian (Hindustani) Raag Bilawal">Select</option>
-    {Object.keys(nonWesternScales).map((westernScale) => (
-        <option key={westernScale} value={westernScale}>
+    {Object.keys(nonWesternScales).map((nonWesternScale) => (
+        <option key={nonWesternScale} value={nonWesternScale}>
          
-                    {westernScale}
+                    {nonWesternScale}
              
         </option>
     ))}
@@ -175,11 +174,11 @@ const onSelectedNonWesternScale = (event) =>{
                 
                 
   <div className="select_Chord">            
-{selectedWestern && (
-    <button className="button_chords" onClick={onShowWesternScale}>{selectedWestern}</button> 
+{selectedNonWestern && (
+    <button className="button_chords" onClick={onShowNonWesternScale}>{selectedNonWestern}</button> 
       )}
       
-      {showWesternScale && (
+      {showNonWesternScale && (
         <label > {selectedNonWesternScale.join(', ')} </label>
       )
       
