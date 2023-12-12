@@ -11,7 +11,9 @@ export const  NonWesternScaleCreator = (scaleArrayWestern) => {
 const [selectedNonWesternScale, setSelectedNonWesternScale] = useState(null);
 const [selectedWestern, setSelectedWestern] = useState(null);
 const [showWesternScale, setShowWesternScale] = useState(false);
-  
+
+
+const theNoteref = useRef("C");
 
 // Non WESTERN SCALES __________________
 
@@ -34,13 +36,21 @@ const onSelectedNonWesternScale = (event) =>{
   }
   
   
+  const onSelectNote = (event) => {
+    theNoteref.current = event.target.value;
+   
+    console.log("theNoteref",theNoteref);
+
+  }
   
   
   
   
-    function circularPermutation(arr, start) {
+    function circularPermutation(arr, startNote) {
       
-    const index = arr.indexOf(start);
+      const index = arr.indexOf(startNote);
+      console.log("index", index);
+      console.log("startNote", startNote);
   
   
     if (index === -1) {
@@ -79,23 +89,30 @@ const onSelectedNonWesternScale = (event) =>{
   
     const nonWesternScaleCreator = (selected) => {
       console.log("selected", selected);
-      let start = 0
+      
+      let start = theNoteref.current; 
+
+      console.log("start", start);
+      
      
-      if (scaleArrayWestern) {
+      if (scaleArrayWestern.scaleArrayWestern.length !== 0) {
         console.log("scaleArrayWestern", scaleArrayWestern);
-        start = scaleArrayWestern[0];
+        start = scaleArrayWestern.scaleArrayWestern[0];
            
       }
-       
-      start = notes[0]; // C 
       
       
-      
+      // insert the Noote default C 
+      console.log("start", start);
       let orgaizedNotes = circularPermutation(notes, start);
+      
       console.log("orgaizedNotes", orgaizedNotes);
       let nonWesternScale = [];
       for (let i = 0; i < selected.length; i++) {
-        console.log("Organized Notes", orgaizedNotes[i]);
+
+        console.log("orgaizedNotes[i]", orgaizedNotes[i]);
+        console.log("selected[i]", selected[i]);
+
         let note = notePlacer(orgaizedNotes, selected[i]);
         let noteMusicalRegister = selected[i] >= 0 ? 4 : 3;
         nonWesternScale.push(`${note} ${noteMusicalRegister}`);
@@ -120,8 +137,30 @@ const onSelectedNonWesternScale = (event) =>{
             <label>SCALE SELECTORS</label>
         </div>
 
-        <div>
+      <div>
+        
+
+      
+
+
+
+
+
         <div className="Chord">
+
+        <label>NOTE</label>
+<select className="select_Chord" onChange={onSelectNote}>
+    <option value="C">Select</option>
+    {notes.map((note) => (
+        <option key={note} value={note}>
+         
+                    {note}
+             
+        </option>
+    ))}
+                </select>
+
+
 <label>NON WESTERN MUSIC </label>
 <select className="select_Chord" onChange={onSelectedNonWesternScale}>
     <option value="Indian (Hindustani) Raag Bilawal">Select</option>
@@ -134,7 +173,7 @@ const onSelectedNonWesternScale = (event) =>{
     ))}
                 </select>
                 
-
+                
   <div className="select_Chord">            
 {selectedWestern && (
     <button className="button_chords" onClick={onShowWesternScale}>{selectedWestern}</button> 

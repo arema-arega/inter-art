@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NonWesternScaleCreator } from './MusicalScaleCreator';
 import { frequencyToNoteCalculator } from './FrequencyToNoteCalculator';
-import Intervals from './IntervalsComponents';
+import { IntervalsComponents } from './IntervalsComponents';
 
 const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) => {
 
@@ -27,7 +27,7 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
  const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
-  const [scaleArrayWestern, setScaleArrayWestern] = useState([])
+  const [scaleArrayWestern, setScaleArrayWestern] = useState([]);
   
  // console.log("audioLink", audioLink);
 
@@ -297,8 +297,8 @@ This line of code will draw a filled rectangle on the canvas starting at coordin
   
 
 
+const intervalsToShow = IntervalsComponents(baseFrequency, pitchValueRef.current)
 
-  
   
   
   
@@ -412,8 +412,9 @@ This line of code will draw a filled rectangle on the canvas starting at coordin
 
       <NonWesternScaleCreator scaleArrayWestern={scaleArrayWestern} />
 
-      <Intervals/>
-
+      <p> {intervalsToShow.closestInterval} </p>
+      <p> {intervalsToShow.exactInterval}</p>
+      <p>{intervalsToShow.higherFrequencyInfo}</p>
 
     </div>
   );
