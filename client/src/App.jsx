@@ -24,7 +24,7 @@ import Logo from './components/Logo';
 import { AudioVisualizerPage } from './pages/AudioVisualizerPage';
 import ScreenSize from './components/ScreenSize';
 import { AudioUploadPage } from './pages/AudioUploadPage';
-import { InfoListPage } from './pages/InfoListPage';
+
 import { StartPage } from './pages/StartPage';
 import { ChordsVisualizerPage } from './pages/ChordsVisualizerPage';
 
@@ -72,9 +72,7 @@ function App() {
                 <Link className="app__header-link" to="/audio-visualizer">
                   AUDIO VISUALIZER
                 </Link>
-                <Link className="app__header-link" to="/info-list">
-                  SONG LIST
-              </Link>
+                
               
               <Link className="app__header-link" to="/chord-visualizer">
                   CHORD VISUALIZER
@@ -90,7 +88,7 @@ function App() {
           <main className="app__main">
             <Routes>
               
-              <Route path="/start" element={<StartPage />} />
+              <Route path="/" element={<StartPage />} />
               <Route path="/audio-upload" element={<AudioUploadPage onFileUpload={handleFileUpload} />} />
               <Route path="/audio-visualizer" element={<AudioVisualizerPage
                 audioLink={audioLink}
@@ -100,7 +98,7 @@ function App() {
 
               <Route path="/chord-visualizer" element={<ChordsVisualizerPage />} />
 
-              <Route path="/info-list" element={<InfoListPage info={info} />} />
+             
             </Routes>
           </main>
 
