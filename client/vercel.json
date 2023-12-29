@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "client/**",
+        "use": "@vercel/static-build",
+        "config": {
+          "base": "/inter-art/client/build"
+        }
+      }
+    ]
+  }
+  
