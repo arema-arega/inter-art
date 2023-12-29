@@ -50,7 +50,7 @@ const Logo = ( currentScreenWidth) => {
    
       <Image
        
-        src="https://github.com/arema-arega/inter-art/blob/gh-pages/logoInterArt.svg"
+        src="https://raw.githubusercontent.com/arema-arega/inter-art/d0c2c83fab96f4ff333e0ad4f5a0420b5e1840a0/logoInterArt.svg"
         alt="Logo"
         isZoomed
         width={percentage + '%'}
