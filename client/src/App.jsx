@@ -29,6 +29,7 @@ import { StartPage } from './pages/StartPage';
 import { ChordsVisualizerPage } from './pages/ChordsVisualizerPage';
 
 import './App.css';
+import { ScalePage } from './pages/ScalesPage';
 
 function App() {
   const [currentScreenSize, setCurrentScreenSize] = useState('');
@@ -73,7 +74,12 @@ function App() {
                   AUDIO VISUALIZER
                 </Link>
                 
+                <Link className="app__header-link" to="/scales-visualizer">
+                 SCALES VISUALIZER
+                </Link>
               
+
+
               <Link className="app__header-link" to="/chord-visualizer">
                   CHORD VISUALIZER
                 </Link>
@@ -95,7 +101,7 @@ function App() {
                 currentScreenSize={currentScreenSize}
                 currentScreenWidth={currentScreenWidth}
               />} />
-
+              <Route path="/scales-visualizer" element={<ScalePage />} />
               <Route path="/chord-visualizer" element={<ChordsVisualizerPage />} />
 
              

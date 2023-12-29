@@ -299,7 +299,7 @@ This line of code will draw a filled rectangle on the canvas starting at coordin
 
 const intervalsToShow = IntervalsComponents(baseFrequency, pitchValueRef.current)
 
-  
+
   
   
 
@@ -410,7 +410,7 @@ const intervalsToShow = IntervalsComponents(baseFrequency, pitchValueRef.current
 
 </div> 
 
-      <NonWesternScaleCreator scaleArrayWestern={scaleArrayWestern} />
+      { /* <NonWesternScaleCreator scaleArrayWestern={scaleArrayWestern} />*/}
 
       <p> {intervalsToShow.closestInterval} </p>
       <p> {intervalsToShow.exactInterval}</p>

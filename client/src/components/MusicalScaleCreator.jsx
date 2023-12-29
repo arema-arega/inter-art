@@ -93,13 +93,14 @@ const onSelectedNonWesternScale = (event) =>{
 
       console.log("start", start);
       
-     
+     /*
+     // Processing the notes coming from the audio upload
       if (scaleArrayWestern.scaleArrayWestern.length !== 0) {
         console.log("scaleArrayWestern", scaleArrayWestern);
         start = scaleArrayWestern.scaleArrayWestern[0];
            
       }
-      
+      */
       
       // insert the Noote default C 
       console.log("start", start);
