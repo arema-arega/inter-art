@@ -20,17 +20,19 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
   const pitchValueRef = useRef(null);
   const bufferLengthRef = useRef(null);
   const baseFrequencyRef = useRef(null);
+ 
 
 
   const [infoFrequency, setInfoFrequency] = useState(null);
-  const [pitchNotes, setPitchNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
+ const [nonFilteredNotes, setNonFilteredNotes] = useState([]);
  const [baseFrequency, setBaseFrequency] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(800);
   const [canvasHeight, setCanvasHeight] = useState(400);
   const [scaleArrayWestern, setScaleArrayWestern] = useState([]);
   
  // console.log("audioLink", audioLink);
-
+ 
  
  
   
@@ -249,6 +251,8 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
     console.log("barWidth", barWidth);
     let x = 0;
     let pitchNotesArray = [];
+   
+    
     
 
     for (let i = 0; i < bufferLengthRef.current; i++) {
@@ -259,19 +263,34 @@ const AudioVisualizer = ({ audioLink, currentScreenSize, currentScreenWidth }) =
       const frequency = i * (audioConstextRef.current.sampleRate / fastFourierValueRef.current);
      // console.log("audioConstextRef.current.sampleRate", audioConstextRef.current.sampleRate);
       setInfoFrequency(frequency);
+      console.log("Frequency", frequency);
+
       const pitchAndBaseFrequency = frequencyToNoteCalculator(frequency)
       pitchValueRef.current = pitchAndBaseFrequency.pitchWesternMusic;
+      console.log("pitchValueRef.current", pitchValueRef.current);
+      console.log("pitchAndBaseFrequency.pitchWesternMusic", pitchAndBaseFrequency.pitchWesternMusic);
+      
+
+
       baseFrequencyRef.current = pitchAndBaseFrequency.baseFrequencyWesternMusic;
+      console.log("baseFrequencyRef.current", baseFrequencyRef.current);
+      
       pitchNotesArray.push(pitchValueRef.current);
       setBaseFrequency(pitchAndBaseFrequency.baseFrequencyWesternMusic);
+
+
+      // Analize the information because scaleArray is empty now
       setScaleArrayWestern(pitchAndBaseFrequency.scaleArray)
      
       canvasCtx.fillStyle = `rgb(${barHeight + 60}, 50, 50)`;
       canvasCtx.fillRect(x, canvasHeight - barHeight / 2, barWidth, barHeight / 2);
       x += barWidth + 2;
     }
-    const pitchNotesArrayFiltered = filterUniqueElements(pitchNotesArray)
-    setPitchNotes(pitchNotesArrayFiltered);
+    setNonFilteredNotes(pitchNotesArray);
+    const pitchNotesArrayFiltered = filterUniqueElements(pitchNotesArray);
+    setFilteredNotes(pitchNotesArrayFiltered);
+
+    
     requestAnimationFrame(draw);
   };
 
@@ -394,11 +413,14 @@ const intervalsToShow = IntervalsComponents(baseFrequency, pitchValueRef.current
       <div >
         {infoFrequency !== null ? (
           <div className="InfoFrecuency">
-          <ol >
+            <ol >
+              
             <li>Frequency - {infoFrequency} </li>
-            <li>NOTES - {pitchNotes.join(', ')} </li>
-            <li>Pitch - {pitchValueRef.current} </li>
             <li>Base Frequency - {baseFrequency}</li>
+            <li>NOTES & OCTAVES NUMBER - {filteredNotes.join(', ')} </li>
+              {/*<li>All THE NOTES - {nonFilteredNotes.join(', ')} </li>*/}
+            <li>Highest Note - {pitchValueRef.current} </li>
+            <li>Lowest Note - {filteredNotes[1]}</li>
             </ol>
             </div>
         ) : (
