@@ -20,12 +20,15 @@ index.html file
 
 /*
 background its the backing image of all the app
-
+*/
 .App{
   
-
+  padding-top: 0.2rem;
+  padding-bottom:0.2rem ;
+  padding-left:1rem ;
+  padding-right:1rem ;
 }
-*/
+
 
 .background{
   background-image: linear-gradient(to top right, #0015ff, #44ff00); 
@@ -79,7 +82,7 @@ div{
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   align-self: center;
   justify-content: space-around;
 }
@@ -225,4 +228,6 @@ input {
         align-items: center;
       }
 
-      
+      image{
+        padding:10rem ;
+      }

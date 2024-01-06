@@ -46,21 +46,22 @@ const Logo = ( currentScreenWidth) => {
     navigate("/audio-upload"); // Navigate to the AudioUpload page when the logo is clicked
   };
 
-  return ( <div>
+  return ( <div >
    
+    <div className="image" >
       <Image
        
         src="https://raw.githubusercontent.com/arema-arega/inter-art/d0c2c83fab96f4ff333e0ad4f5a0420b5e1840a0/logoInterArt.svg"
         alt="Logo"
         isZoomed
         width={percentage + '%'}
-        height={(percentage * 1.2) + '%'}
+        height={percentage + '%'}
         shadow="lg"
         radius="full"
         onPointerDown={handleLogoClick} // Use the custom click handler
         layout="responsive"
     />
-    
+    </div>
     
        </div>
      
